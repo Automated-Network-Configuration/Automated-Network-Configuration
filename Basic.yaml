@@ -1,0 +1,9 @@
+ssh_config:
+  # Basic SSH connection settings
+  host: "example.com"
+  port: 22
+  username: "your_username"
+  
+  # Authentication methods
+  auth:
+    password: "your_password"
