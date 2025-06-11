@@ -124,6 +124,17 @@ body {
   padding: 40px 0;
 }
 
+.download-section h2 {
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+.download-section p {
+  margin-bottom: 30px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
 .download-btn {
   display: inline-block;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -157,6 +168,19 @@ body {
 
 .warning p {
   color: #664d03;
+}
+
+ul.benefits-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.benefits-list li {
+  margin: 15px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
