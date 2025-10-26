@@ -36,6 +36,10 @@ body {
   opacity: 0.9;
 }
 
+.nav-links { 
+  list-style-type: none; 
+} 
+
 .content {
   background: white;
   border-radius: 15px;
