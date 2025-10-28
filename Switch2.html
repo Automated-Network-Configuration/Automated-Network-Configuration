@@ -14,3 +14,26 @@
       </div>
     </div>
   </body>
+
+  Switch 2 – Secondary Switch
+Role
+
+Switch 2 is the secondary or redundant switch providing failover protection and link redundancy in case of Switch 1 or the uplink link failure. It replicates VLAN settings to provide the same segmentation across the network.
+
+Responsibilities
+
+VLAN Mirroring:
+Maintains the same VLAN configuration (10, 20, 30, 40) for network consistency.
+
+Secondary Root Bridge (STP):
+Configured with slightly higher STP priority so that it is a redundant root bridge, stepping in automatically in the event of a Switch 1 failure.
+
+Failover & Redundancy:
+Ensures alternate paths for data via trunk or EtherChannel links to prevent downtime and ensure communication between VLANs.
+
+Backup Uplink:
+Ensures constant uplink connectivity to routers/firewalls should the primary uplink fail.
+
+Load Balancing (Optional):
+Capable of sharing the traffic load according to the spanning tree topology or LACP configuration.
+Automatically returns to the standby state when the main switch comes back online, offering network stability without manual intervention.
