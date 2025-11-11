@@ -1,39 +1,77 @@
 <!DOCTYPE html>
-<html lang = "en">
-  <head>
-    <meta charset = "UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Routers: </title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch 2: Purpose, Configuration, and Benefits</title>
     <link rel="stylesheet" href="stylesheet.css">
-  </head>
-  <body>
+</head>
+<body>
     <div>
-      <div>
-        <h1>Routers: Configuration Guide</h1>
-        <p>Understanding Routers and how to set them up</p>
-      </div>
+        <header>
+            <h1>Switch 2: Purpose, Configuration, and Benefits</h1>
+            <p><b>Understanding why a second switch is vital for scalability, reliability, and performance.</b></p>
+        </header>
+
+        <main>
+            <section>
+                <h2>🧩 The Purpose of Switch 2</h2>
+                <p><b>Switch 2 extends the network’s capacity and resilience by adding additional connection points and supporting distributed traffic management. It ensures that as more devices join the network, performance and security remain consistent.</b></p>
+            </section>
+
+            <section>
+                <h2>💡 Why a Second Switch Is Good and Necessary</h2>
+                <ol>
+                    <li><strong>Increased Port Capacity:</strong> Expands the number of available network connections for additional users and devices.</li>
+                    <li><strong>Improved Network Segmentation:</strong> Allows separation of traffic using VLANs for better organization and security.</li>
+                    <li><strong>Redundancy and Reliability:</strong> Provides failover protection to maintain uptime in case of hardware failure.</li>
+                    <li><strong>Performance Optimization:</strong> Reduces congestion and improves throughput across the network.</li>
+                    <li><strong>Scalability and Flexibility:</strong> Enables easy expansion as the network grows without redesigning the entire setup.</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>🛡️ Protection When Switch 1 Fails</h2>
+                <p><b>Switch 2 plays a critical role in keeping the network operational when Switch 1 encounters hardware failure, misconfiguration, or power loss. Properly linking the two switches provides redundancy that prevents total network downtime.</b></p>
+                <ul>
+                    <li><strong>Automatic Failover:</strong> Redundant trunk links allow Switch 2 to continue forwarding traffic if Switch 1 goes offline.</li>
+                    <li><strong>Alternate Path Routing:</strong> Data automatically reroutes through Switch 2, ensuring devices stay connected to essential services.</li>
+                    <li><strong>Load Balancing:</strong> Under normal operation, both switches share traffic loads, reducing strain and improving performance.</li>
+                    <li><strong>Isolated Failure Domains:</strong> Users connected to Switch 2 remain unaffected by outages or faults on Switch 1.</li>
+                    <li><strong>Power Redundancy:</strong> If each switch uses a separate power source, a power issue on one will not take down the whole network.</li>
+                    <li><strong>Fast Recovery:</strong> Configurations stored on Switch 2 can be used to restore Switch 1 rapidly after maintenance or replacement.</li>
+                </ul>
+                <p><b>This redundancy design is essential in enterprise networks, where continuous access and minimal downtime are priorities.</b></p>
+            </section>
+
+            <section>
+                <h2>⚙️ Configuring Switch 2</h2>
+                <p><b>When adding a second switch to your network, proper configuration ensures optimal performance and security.</b></p>
+                <ul>
+                    <li>Configure trunk ports between Switch 1 and Switch 2 for VLAN traffic.</li>
+                    <li>Enable Spanning Tree Protocol (STP) to prevent network loops.</li>
+                    <li>Use consistent VLAN IDs and naming across both switches.</li>
+                    <li>Set port security to limit unauthorized devices.</li>
+                    <li>Assign static management IPs for remote administration.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>✅ Best Practices for Multi-Switch Networks</h2>
+                <ul>
+                    <li>Label cables and ports for easy maintenance.</li>
+                    <li>Regularly back up both switch configurations.</li>
+                    <li>Use strong passwords and encrypted management protocols (SSH, HTTPS).</li>
+                    <li>Monitor traffic between switches using SNMP or port mirroring.</li>
+                    <li>Document VLAN assignments and topology changes.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Conclusion</h2>
+                <p>Adding a second switch strengthens the entire network by improving performance, scalability, and fault tolerance. Even if Switch 1 fails, Switch 2 ensures continued connectivity and quick recovery. In modern network design, having a secondary switch is not just a convenience — it’s a necessity for ensuring uptime, flexibility, and reliability across all connected systems.</p>
+            </section>
+        </main>
     </div>
-  </body>
-
-  Switch 2 – Secondary Switch
-Role
-
-Switch 2 is the secondary or redundant switch providing failover protection and link redundancy in case of Switch 1 or the uplink link failure. It replicates VLAN settings to provide the same segmentation across the network.
-
-Responsibilities
-
-VLAN Mirroring:
-Maintains the same VLAN configuration (10, 20, 30, 40) for network consistency.
-
-Secondary Root Bridge (STP):
-Configured with slightly higher STP priority so that it is a redundant root bridge, stepping in automatically in the event of a Switch 1 failure.
-
-Failover & Redundancy:
-Ensures alternate paths for data via trunk or EtherChannel links to prevent downtime and ensure communication between VLANs.
-
-Backup Uplink:
-Ensures constant uplink connectivity to routers/firewalls should the primary uplink fail.
-
-Load Balancing (Optional):
-Capable of sharing the traffic load according to the spanning tree topology or LACP configuration.
-Automatically returns to the standby state when the main switch comes back online, offering network stability without manual intervention.
+</body>
+</html>
