@@ -1,400 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🔐 About Auto-Sec</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIU AutoSec - YAML & SSH Configuration</title>
+  <style>
+    :root {
+      --fiu-blue: #081E3F;
+      --fiu-gold: #B6862C;
+      --fiu-light-blue: #1B4B8C;
+      --fiu-light-gold: #D4A556;
+      --white: #FFFFFF;
+      --light-gray: #F5F7FA;
+      --dark-gray: #2D3748;
+      --text-gray: #4A5568;
+    }
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-gray);
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      min-height: 100vh;
+    }
 
-      .header {
-        text-align: center;
-        color: white;
-        margin-bottom: 40px;
-        padding: 40px 0;
-      }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-      .header h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      }
+    /* Header */
+    header {
+      text-align: center;
+      color: var(--white);
+      padding: 60px 20px 40px;
+      margin-bottom: 30px;
+    }
 
-      .header p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-      }
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    }
 
-      .content {
-        background: white;
-        border-radius: 15px;
+    header p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: 0.95;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 28px auto 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 10px 22px;
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(8, 30, 63, 0.3);
+      font-size: 0.98rem;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(8, 30, 63, 0.5);
+      background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
+    }
+
+    /* Main content card */
+    .content-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 32px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      opacity: 0; /* animated */
+    }
+
+    @media (min-width: 768px) {
+      .content-card {
         padding: 40px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
       }
+    }
 
-      .intro {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        border-left: 5px solid #667eea;
-        padding: 30px;
-        border-radius: 10px;
-        margin-bottom: 40px;
-      }
+    /* Intro */
+    .intro {
+      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+      border-left: 5px solid var(--fiu-gold);
+      padding: 26px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+    }
 
-      .intro h2 {
-        color: #4a5568;
-        margin-bottom: 15px;
-        font-size: 1.8rem;
-      }
+    .intro h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+    }
 
-      .intro p {
-        font-size: 1.1rem;
-        color: #666;
+    .intro p {
+      font-size: 1.05rem;
+      color: var(--text-gray);
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin: 32px 0 10px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      color: var(--white);
+      padding: 26px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+      opacity: 0; /* animated */
+      border: 2px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+      border-color: var(--fiu-gold);
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-card .icon {
+      font-size: 1.9rem;
+    }
+
+    .feature-card p {
+      font-size: 0.96rem;
+    }
+
+    /* Usage sections */
+    .usage-section {
+      background: var(--light-gray);
+      padding: 26px;
+      border-radius: 12px;
+      margin: 26px 0;
+    }
+
+    .usage-section h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 16px;
+      font-size: 1.7rem;
+    }
+
+    .usage-section p {
+      margin-bottom: 10px;
+      color: var(--dark-gray);
+    }
+
+    .code-block {
+      background: var(--dark-gray);
+      color: #e2e8f0;
+      padding: 16px 18px;
+      border-radius: 8px;
+      font-family: "Courier New", monospace;
+      overflow-x: auto;
+      margin: 12px 0 16px;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--fiu-gold);
+      white-space: pre;
+    }
+
+    /* Warning box */
+    .warning {
+      background: #fff3cd;
+      border: 2px solid var(--fiu-gold);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .warning h4 {
+      color: #856404;
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .warning p {
+      color: #664d03;
+      font-size: 0.98rem;
+    }
+
+    /* Bullet cards in second usage section */
+    .bullet-card {
+      margin: 15px 0;
+      padding: 15px;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      list-style: none;
+    }
+
+    /* Download section */
+    .download-section {
+      text-align: center;
+      padding: 32px 0 10px;
+    }
+
+    .download-section h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 16px;
+      font-size: 1.8rem;
+    }
+
+    .download-section p {
+      margin-bottom: 20px;
+      color: var(--dark-gray);
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--fiu-gold) 0%, var(--fiu-light-gold) 100%);
+      color: var(--fiu-blue);
+      padding: 14px 36px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(182, 134, 44, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(182, 134, 44, 0.55);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: var(--white);
+      padding: 28px 20px 10px;
+      margin-top: 20px;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .content-card {
+        padding: 24px;
       }
 
       .features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin: 40px 0;
+        grid-template-columns: 1fr;
       }
 
-      .feature-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      .nav-links {
+        flex-direction: column;
       }
 
-      .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      }
-
-      .feature-card h3 {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-      }
-
-      .feature-card .icon {
-        font-size: 2rem;
-        margin-right: 15px;
-      }
-
-      .usage-section {
-        background: #f8f9fa;
-        padding: 30px;
-        border-radius: 10px;
-        margin: 30px 0;
-      }
-
-      .usage-section h2 {
-        color: #2d3748;
-        margin-bottom: 20px;
-        font-size: 1.8rem;
-      }
-
-      .code-block {
-        background: #2d3748;
-        color: #e2e8f0;
-        padding: 20px;
-        border-radius: 8px;
-        font-family: "Courier New", monospace;
-        overflow-x: auto;
-        margin: 15px 0;
-      }
-
-      .download-section {
+      .nav-links a {
+        width: 100%;
         text-align: center;
-        padding: 40px 0;
       }
+    }
 
-      .download-btn {
-        display: inline-block;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 15px 40px;
-        text-decoration: none;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
-
-      .download-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      .warning {
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
-        border-radius: 8px;
-        padding: 20px;
-        margin: 20px 0;
-      }
+    .animate-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🔐 AutoSec - YAML & SSH Configuration</h1>
+      <p>
+        Structured, Ansible-ready SSH configurations to keep your network automation secure and consistent.
+      </p>
 
-      .warning h4 {
-        color: #856404;
-        margin-bottom: 10px;
-      }
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="switch1.html">Switch 1</a></li>
+          <li><a href="router.html">Router</a></li>
+          <li><a href="switch2.html">Switch 2</a></li>
+          <li><a href="yaml.html">YAML Files</a></li>
+        </ul>
+      </nav>
+    </header>
 
-      .warning p {
-        color: #664d03;
-      }
-
-      @media (max-width: 768px) {
-        .header h1 {
-          font-size: 2rem;
-        }
-
-        .content {
-          padding: 20px;
-        }
-
-        .features {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h1>🔐 Auto-Sec</h1>
+    <!-- Main content -->
+    <section class="content-card">
+      <div class="intro">
+        <h2>What does the YAML file do?</h2>
         <p>
-          Structured configurations to ensure consistency across your IT infrastructure, including switches
-          and routers.
+          This Ansible-ready YAML configuration helps automate the deployment of critical SSH and
+          connection settings across your infrastructure. It ensures consistency, reduces human error,
+          and gives you a repeatable, version-controlled way to manage changes with minimal downtime.
         </p>
       </div>
 
-      <div class="content">
-        <div class="intro">
-          <h2>What does the yaml file do ??</h2>
+      <!-- Feature cards -->
+      <div class="features">
+        <div class="feature-card">
+          <h3><span class="icon">🔑</span>Multiple Authentication</h3>
           <p>
-            This Ansible playbook automates the deployment of critical
-            configuration files across all our servers. It ensures consistency,
-            reduces human error, and gives us a repeatable, version-controlled
-            way to manage infrastructure changes with minimal downtime.
+            Support for password, key-based, and SSH agent authentication methods with flexible,
+            per-host configuration options.
           </p>
         </div>
 
-        <div class="features">
-          <div class="feature-card">
-            <h3><span class="icon">🔑</span>Multiple Authentication</h3>
-            <p>
-              Support for password, key-based, and SSH agent authentication
-              methods with flexible configuration options.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3><span class="icon">🌐</span>Multi-Host Management</h3>
-            <p>
-              Organize connections for production, staging, and development
-              environments with environment-specific settings.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3>
-              <span class="icon">🚇</span>Consistent Configs Across Your IT
-              Infrastructure
-            </h3>
-            <p>
-              Ensure uniform SSH configurations across switches, routers, and
-              servers for reliable and secure connectivity.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3><span class="icon">⚙️</span>A Rapid Deployment</h3>
-            <p>
-              Roll out updates or changes to hundreds of systems in minutes with
-              a single command.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3><span class="icon">🤖</span>Ansible Ready</h3>
-            <p>
-              No more misconfigured devices or forgotten changes. Every
-              deployment is predictable and testable.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3><span class="icon">🔧</span>Error Reduction</h3>
-            <p>
-              Specifications for SSH key generation including key type, bit
-              length, and security parameters.
-            </p>
-          </div>
-        </div>
-
-        <div class="usage-section">
-          <h2>How to Use This Configuration</h2>
-          <p><strong>1. Customize the Configuration:</strong></p>
-          <div class="code-block">
-            # Replace placeholder values with your actual server details host:
-            "your-server.com" username: "your_username" private_key_path:
-            "~/.ssh/your_key"
-          </div>
-
-          <p><strong>2. Use with Ansible:</strong></p>
-          <div class="code-block">
-            # Load the configuration in your playbook - hosts: all vars_files: -
-            ssh_config.yml tasks: - name: Connect using SSH config ping:
-          </div>
-
-          <p><strong>3. Use with Docker Compose:</strong></p>
-          <div class="code-block">
-            # Reference in your docker-compose.yml services: app: environment: -
-            SSH_HOST=${ssh_config.host} - SSH_USER=${ssh_config.username}
-          </div>
-        </div>
-
-        <div class="warning">
-          <h4>⚠️ Security Notice</h4>
+        <div class="feature-card">
+          <h3><span class="icon">🌐</span>Multi-Host Management</h3>
           <p>
-            Remember to replace all placeholder values with your actual
-            credentials. Never commit passwords or private keys to version
-            control. Use environment variables or secure secret management for
-            sensitive data.
+            Organize connections for production, staging, and development environments using
+            environment-specific variables and blocks.
           </p>
         </div>
 
-        <div class="usage-section">
-          <h2>Why Use Structured SSH Configurations?</h2>
-          <ul style="list-style-type: none; padding: 0">
-            <li
-              style="
-                margin: 15px 0;
-                padding: 15px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <strong>🔧 Basic SSH Settings:</strong> Simplify access across
-              your infrastructure by predefining hostnames, ports, and
-              authentication—no need to memorize or repeat.
-            </li>
-
-            <li
-              style="
-                margin: 15px 0;
-                padding: 15px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <strong>🌍 Multi-Host Configuration:</strong> Manage environments
-              (dev, test, prod) with clean separation—reduce errors and maintain
-              clarity in your connections.
-            </li>
-
-            <li
-              style="
-                margin: 15px 0;
-                padding: 15px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <strong>🚇 SSH Tunneling:</strong> Securely access internal
-              systems or services without exposing them publicly—ideal for
-              remote work and layered networks.
-            </li>
-
-            <li
-              style="
-                margin: 15px 0;
-                padding: 15px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <strong>🔑 Key Management:</strong> Strengthen your security
-              posture by enforcing consistent key usage, minimizing weak
-              credentials and manual handling.
-            </li>
-
-            <li
-              style="
-                margin: 15px 0;
-                padding: 15px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <strong>🤖 Ansible Integration:</strong> Leverage automation to
-              apply SSH configs at scale—boost efficiency, reduce errors, and
-              stay audit-ready.
-            </li>
-          </ul>
+        <div class="feature-card">
+          <h3><span class="icon">🚇</span>Consistent Configs</h3>
+          <p>
+            Ensure uniform SSH configurations across switches, routers, and servers to maintain
+            reliable, secure connectivity.
+          </p>
         </div>
 
-        <div class="download-section">
-          <h2 style="margin-bottom: 20px; color: #2d3748">
-            Ready to Get Started?
-          </h2>
-          <p style="margin-bottom: 30px; color: #666; font-size: 1.1rem">
-            Use the SSH configuration YAML file and customize for your
-            infrastructure needs.
+        <div class="feature-card">
+          <h3><span class="icon">⚙️</span>Rapid Deployment</h3>
+          <p>
+            Roll out updates or config changes to hundreds of systems in minutes using a single
+            Ansible playbook or automation job.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3><span class="icon">🤖</span>Ansible Ready</h3>
+          <p>
+            Designed to plug directly into Ansible inventory and playbooks so every deployment is
+            predictable, testable, and repeatable.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3><span class="icon">🔧</span>Error Reduction</h3>
+          <p>
+            Centralize key generation parameters, cipher policies, and session options to minimize
+            misconfigurations across your fleet.
           </p>
         </div>
       </div>
-    </div>
 
-    <script>
-      // Add smooth scrolling and animation effects
-      document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll(".feature-card");
+      <!-- Usage section -->
+      <div class="usage-section">
+        <h2>How to Use This Configuration</h2>
 
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = "1";
-              entry.target.style.transform = "translateY(0)";
-            }
-          });
-        });
+        <p><strong>1. Customize the configuration:</strong></p>
+        <div class="code-block">
+# Replace placeholder values with your actual server details
+host: "your-server.com"
+username: "your_username"
+private_key_path: "~/.ssh/your_key"
+        </div>
 
-        cards.forEach((card) => {
-          card.style.opacity = "0";
-          card.style.transform = "translateY(20px)";
-          card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-          observer.observe(card);
-        });
+        <p><strong>2. Use with Ansible:</strong></p>
+        <div class="code-block">
+# Load the configuration in your playbook
+- hosts: all
+  vars_files:
+    - ssh_config.yml
+  tasks:
+    - name: Connect using SSH config
+      ping:
+        # connection will use values from ssh_config.yml
+        </div>
+
+        <p><strong>3. Use with Docker Compose (example):</strong></p>
+        <div class="code-block">
+# Reference in your docker-compose.yml
+services:
+  app:
+    environment:
+      - SSH_HOST=${ssh_config.host}
+      - SSH_USER=${ssh_config.username}
+        </div>
+      </div>
+
+      <!-- Warning -->
+      <div class="warning">
+        <h4>⚠️ Security Notice</h4>
+        <p>
+          Always replace placeholder values with real hostnames, users, and key paths. Never commit
+          passwords, private keys, or sensitive tokens to version control. Use environment variables,
+          vaults, or secret management tools for anything confidential.
+        </p>
+      </div>
+
+      <!-- Why structured configs -->
+      <div class="usage-section">
+        <h2>Why Use Structured SSH Configurations?</h2>
+        <ul style="list-style-type: none; padding: 0;">
+          <li class="bullet-card">
+            <strong>🔧 Basic SSH Settings:</strong>
+            Simplify access across your infrastructure by predefining hostnames, ports, and
+            authentication—no need to memorize or retype the same flags.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🌍 Multi-Host Configuration:</strong>
+            Clean separation between dev, test, and prod reduces mistakes and keeps connection logic
+            clear and maintainable.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🚇 SSH Tunneling:</strong>
+            Securely access internal systems or services without exposing them publicly—ideal for
+            remote work and layered networks.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🔑 Key Management:</strong>
+            Enforce consistent key lengths, algorithms, and rotation policies to strengthen your
+            overall security posture.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🤖 Ansible Integration:</strong>
+            Apply SSH configs at scale with Ansible—boost efficiency, reduce manual errors, and stay
+            audit-ready with version-controlled YAML.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Download / CTA -->
+      <div class="download-section">
+        <h2>Ready to Get Started?</h2>
+        <p>
+          Download or create your SSH configuration YAML file, customize it for your environment,
+          and plug it into your automation workflows.
+        </p>
+        <!-- Point this href to your actual YAML file or repo if you have one -->
+        <a href="#" class="btn">View Sample SSH YAML</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 AutoSec. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
       });
-    </script>
-  </body>
+    }, observerOptions);
+
+    document.querySelectorAll('.content-card, .feature-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
 </html>
