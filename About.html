@@ -92,14 +92,13 @@
       background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
     }
 
-    /* Main content card */
     .content-card {
       background: var(--white);
       border-radius: 15px;
       padding: 32px;
       margin-bottom: 30px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      opacity: 0; /* animated */
+      opacity: 0; 
     }
 
     @media (min-width: 768px) {
@@ -108,7 +107,7 @@
       }
     }
 
-    /* Intro */
+
     .intro {
       background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
       border-left: 5px solid var(--fiu-gold);
@@ -128,7 +127,6 @@
       color: var(--text-gray);
     }
 
-    /* Features */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -169,7 +167,6 @@
       font-size: 0.96rem;
     }
 
-    /* Usage sections */
     .usage-section {
       background: var(--light-gray);
       padding: 26px;
@@ -201,7 +198,6 @@
       white-space: pre;
     }
 
-    /* Warning box */
     .warning {
       background: #fff3cd;
       border: 2px solid var(--fiu-gold);
@@ -221,7 +217,6 @@
       font-size: 0.98rem;
     }
 
-    /* Bullet cards in second usage section */
     .bullet-card {
       margin: 15px 0;
       padding: 15px;
@@ -231,7 +226,6 @@
       list-style: none;
     }
 
-    /* Download section */
     .download-section {
       text-align: center;
       padding: 32px 0 10px;
@@ -267,7 +261,6 @@
       box-shadow: 0 10px 30px rgba(182, 134, 44, 0.55);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       color: var(--white);
@@ -280,7 +273,6 @@
       opacity: 0.9;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .content-card {
         padding: 24px;
@@ -300,7 +292,6 @@
       }
     }
 
-    /* Animation */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -319,26 +310,24 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
     <header>
       <h1>🔐 AutoSec - Python & SSH Automation</h1>
       <p>
         Python-based SSH automation to keep your network configuration fast, repeatable, and secure.
       </p>
 
-      <nav>
+       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="About.html">About</a></li>
           <li><a href="Switch 1.html">Switch 1</a></li>
-          <li><a href="Router.html">Router</a></li>
-          <li><a href="Switch 2.html">Failover Switch</a></li>
-          <li><a href="usage.html">usage</a></li>
+          <li><a href="router.html">Router</a></li>
+          <li><a href="Switch 2.html">Fail Over Swith</a></li>
+          <li><a href="usage.html">Usage</a></li>
+          <li><a href="About.html">About</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- Main content -->
     <section class="content-card">
       <div class="intro">
         <h2>What does the Python script do?</h2>
@@ -349,7 +338,6 @@
         </p>
       </div>
 
-      <!-- Feature cards -->
       <div class="features">
         <div class="feature-card">
           <h3><span class="icon">🔑</span>Multiple Authentication</h3>
@@ -400,7 +388,6 @@
         </div>
       </div>
 
-      <!-- Usage section -->
       <div class="usage-section">
         <h2>How to Use a Python SSH Automation Script</h2>
 
@@ -451,7 +438,6 @@ for dev in devices:
         </div>
       </div>
 
-      <!-- Warning -->
       <div class="warning">
         <h4>⚠️ Security Notice</h4>
         <p>
@@ -462,7 +448,6 @@ for dev in devices:
         </p>
       </div>
 
-      <!-- Why Python automation -->
       <div class="usage-section">
         <h2>Why Use Python for SSH Automation?</h2>
         <ul style="list-style-type: none; padding: 0;">
@@ -498,26 +483,22 @@ for dev in devices:
         </ul>
       </div>
 
-      <!-- Download / CTA -->
       <div class="download-section">
         <h2>Ready to Get Started?</h2>
         <p>
           Build a simple Python SSH script, test it against a lab switch or router, and then expand
           it into a reusable tool for your entire AutoSec environment.
         </p>
-        <!-- Point this href to your actual .py file or repo if you have one -->
         <a href="#" class="btn">View Sample Python Script</a>
       </div>
     </section>
 
-    <!-- Footer -->
     <footer>
       <p>&copy; 2025 AutoSec. All rights reserved.</p>
     </footer>
   </div>
 
   <script>
-    // Intersection Observer for fade-in animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -40px 0px'
