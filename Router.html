@@ -1,109 +1,164 @@
 <!DOCTYPE html>
-<html lang = "en">
-  <head>
-    <meta charset = "UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Routers: </title>
-    <link rel="stylesheet" href="stylesheet.css">
-  </head>
-  <body>
-    <div>
-      <div>
-        <h1>Routers: Configuration Guide</h1>
-        <p>Understanding Routers and how to set them up</p>
-      </div>
-    </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoSec - Routers Configuration Guide</title>
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>📡 AutoSec - Routers</h1>
+      <p>Understanding routers, how they work, and how to configure them securely.</p>
 
-    <div>
-      <!-- What are routers section -->
-      <h2> What are Routers?</h2>
-      <p>A router is a device that connects multiple computer networks, such as a home network to the internet or different office networks to a central one.</p>
-
-      <div>
-        <h3>How Routers Work</h3>
-        <ul>
-          <li>Receives data packets</li>
-          <li>Assigns local IP address to connected devices</li>
-          <li>Determines most efficient path for each packet to reach destination</li>
-          <li>Acts as a traffic controller</li>
-          <li>Provides security through a firewall</li>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="switch1.html">Switch 1</a></li>
+          <li><a href="router.html">Router</a></li>
+          <li><a href="switch2.html">Switch 2</a></li>
+          <li><a href="yaml.html">Python Scripts</a></li>
         </ul>
-      </div>
+      </nav>
+    </header>
 
-      <div>
-        <h3>Common Router Uses</h3>
-        <ul>
-          <li>Connecting multiple devices to a single internet connection</li>
-          <li>Creating local networks</li>
-          <li>Providing Wi-Fi access</li>
-        </ul>
-      </div>
-    </div>
-
-    <div>
-      <h2>⚠️ Common Router Misconfigurations</h2>
-      <p>Setting up routers can lead to the occasional hiccup with configuration issues. Here is a list of them</p>
-
-      <div>
-        <h4>1. Default Credentials</h4>
-        <p>Leaving default usernames and passwords on admin accounts is one of the most prevalent misconfigurations</p>
-        <div>
-          <h5>Negative Consequences</h5>
-          <p>• Unauthorized access<br>
-          • Complete network compromise<br>
-          • Loss of privacy<br>
-          • Device Hijacking</p>
+    <main>
+      <!-- What are routers -->
+      <section class="content-card">
+        <div class="intro-section">
+          <h2>What Are Routers?</h2>
+          <p>
+            A router is a device that connects multiple computer networks, such as a home network to the internet
+            or different office networks to a central one. Routers operate primarily at Layer 3 of the OSI model,
+            using IP addresses to forward traffic between networks.
+          </p>
         </div>
-      </div>
 
-      <div>
-        <h4>2. Failure to Update Firmware</h4>
-        <p>Failure to update router firmware can result in leaving known vulnurabilities unpatched</p>
-        <div>
-          <h5>Negative Consequences</h5>
-          <p>• Exploitation of Vulnurabilities<br>
-          • Performance and Stability Issues<br>
-          • Malware Infection<br>
-          • Reduced Security Posture</p>
-        </div>
-      </div>
+        <div class="features-grid">
+          <div class="info-box">
+            <h3>How Routers Work</h3>
+            <ul>
+              <li>Receive and inspect data packets</li>
+              <li>Assign local IP addresses to connected devices (via DHCP)</li>
+              <li>Determine the most efficient path for packets to reach their destination</li>
+              <li>Act as a traffic controller between internal and external networks</li>
+              <li>Provide basic security using NAT and built-in firewall features</li>
+            </ul>
+          </div>
 
-      <div>
-        <h4>3. Improper Configuring Firewall or Access Controls</h4>
-        <p>Can Either block legitimate traffic or leave ports open to attackers</p>
-        <div>
-          <h5>Negative Consequences</h5>
-          <p>• Unauthorized Network Access<br>
-          • Data Breaches<br>
-          • Denial of Service (DOS)<br>
-          • Operational Disruptions</p>
+          <div class="info-box">
+            <h3>Common Router Uses</h3>
+            <ul>
+              <li>Connecting multiple devices to a single internet connection</li>
+              <li>Creating and managing local networks (LANs)</li>
+              <li>Providing wired and Wi-Fi access</li>
+              <li>Segmenting networks for guests and internal users</li>
+              <li>Connecting branch offices through VPN tunnels</li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div>
-        <h4>4. Poor Access Controls</h4>
-        <p>Leaving services running on a firewall or not having proper firewall protection creates an easy entry point for attackers</p>
-        <div>
-          <h5>Negative Consequences</h5>
-          <p>• Unauthorized Administrative Changes<br>
-          • Data Theft<br>
-          • Network Disruption<br>
-          • Escalation of Attacks</p>
-        </div>
-      </div>
+      <!-- Misconfigurations -->
+      <section class="content-card">
+        <h2 class="section-title">⚠️ Common Router Misconfigurations</h2>
+        <p class="section-subtitle">
+          Router setup mistakes can expose your entire network to risk. Below are frequent misconfigurations
+          and why they are dangerous.
+        </p>
 
-      <div>
-        <h4>5. Unused Features</h4>
-        <p>Routers often include optional features that are enabled by default but not needed</p>
-        <div>
-          <h5>Negative Consequences</h5>
-          <p>• Expanded Attack Surface<br>
-          • Remote Exploits<br>
-          • Performance Degradation<br>
-          • Hidden Vulnurabilities</p>
+        <div class="info-box">
+          <h3>1. Default Credentials</h3>
+          <p>
+            Leaving default usernames and passwords (like <code>admin/admin</code>) on router admin accounts
+            is one of the most common and dangerous misconfigurations.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Unauthorized access to router settings</li>
+            <li>Complete network compromise</li>
+            <li>Loss of privacy and data exposure</li>
+            <li>Device hijacking for botnets or attacks</li>
+          </ul>
         </div>
-      </div>
-      
-    </div>
-  </body>
-    
+
+        <div class="info-box">
+          <h3>2. Failure to Update Firmware</h3>
+          <p>
+            Not updating router firmware leaves known vulnerabilities unpatched and exploitable.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Exploitation of known vulnerabilities</li>
+            <li>Performance and stability issues</li>
+            <li>Malware infection of the router</li>
+            <li>Overall reduced security posture</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>3. Improper Firewall or Access Control Configuration</h3>
+          <p>
+            Misconfigured firewall rules can either block legitimate traffic or leave critical ports exposed
+            to the internet.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Unauthorized network access</li>
+            <li>Data breaches and information leakage</li>
+            <li>Denial of Service (DoS) conditions</li>
+            <li>Operational disruptions for users and services</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>4. Poor Access Controls</h3>
+          <p>
+            Leaving remote management services open, using weak passwords, or not restricting who can reach
+            the admin interface creates an easy entry point for attackers.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Unauthorized administrative changes</li>
+            <li>Data theft and traffic manipulation</li>
+            <li>Network disruption and downtime</li>
+            <li>Attackers gaining a foothold for further escalation</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>5. Unused Features Left Enabled</h3>
+          <p>
+            Routers often ship with optional services enabled by default (remote admin, WPS, UPnP, etc.)
+            that are not needed in many environments.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Expanded attack surface</li>
+            <li>Remote exploits through unnecessary services</li>
+            <li>Performance degradation</li>
+            <li>Hidden vulnerabilities that are hard to track</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>Best Practice Reminder</h3>
+          <p>
+            Always change default credentials, keep firmware updated, disable unused services, and restrict
+            router management access to trusted networks. Test changes in a controlled environment before
+            applying them to production routers.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 AutoSec. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
