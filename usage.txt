@@ -1,6 +1,6 @@
 How to Use the FIU Capstone Switch Configuration Script
 
-This Python script automatically configures a Cisco switch over the serial console using pyserial. It:
+This Python script automates the configuration of a Cisco switch via the serial console using the pyserial library. The script performs the following tasks:
 
 * Detects the correct COM/USB serial port
 * Logs into the switch console
@@ -16,11 +16,11 @@ This Python script automatically configures a Cisco switch over the serial conso
   * Cisco switch (e.g., Catalyst 2950)
   * USB-to-serial adapter (or native serial port)
   * Console cable connected from your PC to the switch’s console port
-  * Ensure the switch is powered on and displays a command-line interface (CLI) prompt (such as Switch> or Switch#)
+  * Ensure that the switch is powered on and displays a command-line interface (CLI) prompt, such as Switch> or Switch#.
 2. Software
   * Python 3.x installed
   * pyserial library installed
-3. To install the pyserial library, use the following command:
+3. To install the pyserial library, enter the following command in your terminal or command prompt:
 
 pip install pyserial
 
@@ -38,29 +38,29 @@ import re
 
 
 * serial and serial.tools.list_ports: Communicate with the switch over the COM port and automatically detect the appropriate port.
-* time: Add small delays so the switch has time to respond.
-* re: Identify prompts such as [confirm] or copy confirmation messages in the switch output.
+* time: Introduces brief delays to allow the switch sufficient time to respond.
+* re: Detects prompts such as [confirm] or copy confirmation messages within the switch output.
 
 Core functions:
 
 * detect_com_port()
-Identifies the first serial port that matches a USB or serial adapter and displays:
+Identifies the first serial port corresponding to a USB or serial adapter and displays the following message:
 
 [✓] Using detected port: COM3
 
 
 * send_and_confirm(ser, cmd, delay=0.4)
-Transmits a command, waits for a response, and then:
+Sends a command, waits for a response, and then performs the following actions:
   * Automatically answers [confirm] prompts
   * Confirms Destination filename for copy run start
   * Prints which command is being sent
 * configure_switch(port)
-Establishes a connection to the switch on the specified port and executes all configuration commands sequentially:
+Establishes a connection to the switch on the specified port and executes all configuration commands in sequence:
   * Basic security (passwords, user)
   * Console and VTY protection
   * Default gateway and management VLAN SVI
   * VLANs 10/20/30/40 and port assignments
-  * Voice VLAN Disables the unused port Fa0/48 UniFi router
+  * Configures the voice VLAN and disables the unused port Fa0/48, which is connected to the UniFi router
   * Shuts down unused port Fa0/48
   * Configures a message of the day (MOTD) banner
   * Saves the configuration
@@ -163,9 +163,7 @@ show running-config
 
 ---
 
-5. Script Customization
-
-You can safely edit the commands list inside configure_switch() to match your environment:
+5. Script CustomizatYou may modify the list of commands within configure_switch() to align with your specific network environment:ment:
 
 * Change hostname
 
@@ -193,7 +191,7 @@ Edit lines like:
 "switchport trunk allowed vlan 1,10,20,30,40",
 
 
-After making any modifications, re-execute the script to apply the updated configuration.
+After making modifications, re-run the script to apply the updated configuration to the switch.
 
 ---
 
