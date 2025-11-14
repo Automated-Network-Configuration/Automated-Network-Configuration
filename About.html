@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIU AutoSec - YAML & SSH Configuration</title>
+  <title>FIU AutoSec - Python & SSH Automation</title>
   <style>
     :root {
       --fiu-blue: #081E3F;
@@ -321,19 +321,19 @@
   <div class="container">
     <!-- Header -->
     <header>
-      <h1>🔐 AutoSec - YAML & SSH Configuration</h1>
+      <h1>🔐 AutoSec - Python & SSH Automation</h1>
       <p>
-        Structured, Ansible-ready SSH configurations to keep your network automation secure and consistent.
+        Python-based SSH automation to keep your network configuration fast, repeatable, and secure.
       </p>
 
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="About.html">About</a></li>
-          <li><a href="switch1.html">Switch 1</a></li>
-          <li><a href="router.html">Router</a></li>
-          <li><a href="switch2.html">Switch 2</a></li>
-          <li><a href="yaml.html">YAML Files</a></li>
+          <li><a href="Switch 1.html">Switch 1</a></li>
+          <li><a href="Router.html">Router</a></li>
+          <li><a href="Switch 2.html">Failover Switch</a></li>
+          <li><a href="usage.html">usage</a></li>
         </ul>
       </nav>
     </header>
@@ -341,11 +341,11 @@
     <!-- Main content -->
     <section class="content-card">
       <div class="intro">
-        <h2>What does the YAML file do?</h2>
+        <h2>What does the Python script do?</h2>
         <p>
-          This Ansible-ready YAML configuration helps automate the deployment of critical SSH and
-          connection settings across your infrastructure. It ensures consistency, reduces human error,
-          and gives you a repeatable, version-controlled way to manage changes with minimal downtime.
+        This Python-based automation script manages SSH and COM connections, as well as configuration tasks, across network devices. 
+        It standardizes settings, reduces manual command-line interface operations, and enables repeatable workflows for switches, routers, and servers, 
+        functioning similarly to SCCM Configuration Manager for Windows.
         </p>
       </div>
 
@@ -354,84 +354,100 @@
         <div class="feature-card">
           <h3><span class="icon">🔑</span>Multiple Authentication</h3>
           <p>
-            Support for password, key-based, and SSH agent authentication methods with flexible,
-            per-host configuration options.
+            Use passwords or SSH keys with libraries like <code>paramiko</code> or <code>netmiko</code>,
+            giving you flexible authentication per device or environment.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🌐</span>Multi-Host Management</h3>
           <p>
-            Organize connections for production, staging, and development environments using
-            environment-specific variables and blocks.
+            Loop through multiple hosts from a Python list or inventory file, applying the same logic to
+            production, staging, and lab devices with a single script.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🚇</span>Consistent Configs</h3>
           <p>
-            Ensure uniform SSH configurations across switches, routers, and servers to maintain
-            reliable, secure connectivity.
+            Send standardized configuration commands over SSH to switches, routers, and servers, keeping
+            network behavior predictable and documented in code.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">⚙️</span>Rapid Deployment</h3>
           <p>
-            Roll out updates or config changes to hundreds of systems in minutes using a single
-            Ansible playbook or automation job.
+            Push updates, patch changes, or new settings to dozens of devices in minutes instead of hours
+            of manual CLI sessions.
           </p>
         </div>
 
         <div class="feature-card">
-          <h3><span class="icon">🤖</span>Ansible Ready</h3>
+          <h3><span class="icon">🤖</span>Automation Friendly</h3>
           <p>
-            Designed to plug directly into Ansible inventory and playbooks so every deployment is
-            predictable, testable, and repeatable.
+            Integrate Python scripts into CI/CD pipelines, cron jobs, or orchestration tools to schedule
+            checks and configuration tasks automatically.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🔧</span>Error Reduction</h3>
           <p>
-            Centralize key generation parameters, cipher policies, and session options to minimize
-            misconfigurations across your fleet.
+            Centralize commands and logic in one script, reducing the chance of mistyped commands or
+            inconsistent setups between devices.
           </p>
         </div>
       </div>
 
       <!-- Usage section -->
       <div class="usage-section">
-        <h2>How to Use This Configuration</h2>
+        <h2>How to Use a Python SSH Automation Script</h2>
 
-        <p><strong>1. Customize the configuration:</strong></p>
+        <p><strong>1. Define your device settings:</strong></p>
         <div class="code-block">
-# Replace placeholder values with your actual server details
-host: "your-server.com"
-username: "your_username"
-private_key_path: "~/.ssh/your_key"
+import netmiko
+
+device = {
+    "device_type": "cisco_ios",
+    "ip": "192.168.1.100",
+    "username": "admin",
+    "password": "your_password",
+    "secret": "enable_password",
+}
         </div>
 
-        <p><strong>2. Use with Ansible:</strong></p>
+        <p><strong>2. Connect and run commands:</strong></p>
         <div class="code-block">
-# Load the configuration in your playbook
-- hosts: all
-  vars_files:
-    - ssh_config.yml
-  tasks:
-    - name: Connect using SSH config
-      ping:
-        # connection will use values from ssh_config.yml
+from netmiko import ConnectHandler
+
+connection = ConnectHandler(**device)
+connection.enable()
+
+commands = [
+    "hostname AutoSec-SW1",
+    "interface vlan 1",
+    "ip address 192.168.1.5 255.255.255.0",
+    "no shutdown",
+]
+
+output = connection.send_config_set(commands)
+print(output)
+
+connection.save_config()
+connection.disconnect()
         </div>
 
-        <p><strong>3. Use with Docker Compose (example):</strong></p>
+        <p><strong>3. Extend to multiple devices:</strong></p>
         <div class="code-block">
-# Reference in your docker-compose.yml
-services:
-  app:
-    environment:
-      - SSH_HOST=${ssh_config.host}
-      - SSH_USER=${ssh_config.username}
+devices = [device1, device2, device3]
+
+for dev in devices:
+    with ConnectHandler(**dev) as conn:
+        conn.enable()
+        conn.send_config_set(commands)
+        conn.save_config()
+        print(f"Configured {dev['ip']}")
         </div>
       </div>
 
@@ -439,44 +455,45 @@ services:
       <div class="warning">
         <h4>⚠️ Security Notice</h4>
         <p>
-          Always replace placeholder values with real hostnames, users, and key paths. Never commit
-          passwords, private keys, or sensitive tokens to version control. Use environment variables,
-          vaults, or secret management tools for anything confidential.
+          Never hard-code real passwords or private keys in your Python scripts. Use environment
+          variables, encrypted vaults, or secret managers. Limit which hosts and users can be
+          targeted by automation, and always test scripts in a lab before running them on
+          production devices.
         </p>
       </div>
 
-      <!-- Why structured configs -->
+      <!-- Why Python automation -->
       <div class="usage-section">
-        <h2>Why Use Structured SSH Configurations?</h2>
+        <h2>Why Use Python for SSH Automation?</h2>
         <ul style="list-style-type: none; padding: 0;">
           <li class="bullet-card">
-            <strong>🔧 Basic SSH Settings:</strong>
-            Simplify access across your infrastructure by predefining hostnames, ports, and
-            authentication—no need to memorize or retype the same flags.
+            <strong>🔧 Repeatable Commands:</strong>
+            Put your “golden config” into Python lists and functions so you can apply the same
+            changes over and over without retyping.
           </li>
 
           <li class="bullet-card">
-            <strong>🌍 Multi-Host Configuration:</strong>
-            Clean separation between dev, test, and prod reduces mistakes and keeps connection logic
-            clear and maintainable.
+            <strong>🌍 Scales Across Environments:</strong>
+            Target dev, test, and prod with different device lists or credentials while using the
+            same core automation logic.
           </li>
 
           <li class="bullet-card">
-            <strong>🚇 SSH Tunneling:</strong>
-            Securely access internal systems or services without exposing them publicly—ideal for
-            remote work and layered networks.
+            <strong>🚇 Deep Access Control:</strong>
+            Use SSH tunnels, jump hosts, and role-based accounts while still controlling everything
+            from a single Python entry point.
           </li>
 
           <li class="bullet-card">
-            <strong>🔑 Key Management:</strong>
-            Enforce consistent key lengths, algorithms, and rotation policies to strengthen your
-            overall security posture.
+            <strong>🔑 Strong Key Usage:</strong>
+            Encourage key-based authentication instead of passwords and rotate keys with automated
+            routines when needed.
           </li>
 
           <li class="bullet-card">
-            <strong>🤖 Ansible Integration:</strong>
-            Apply SSH configs at scale with Ansible—boost efficiency, reduce manual errors, and stay
-            audit-ready with version-controlled YAML.
+            <strong>🤖 Integrates Everywhere:</strong>
+            Python scripts can run on laptops, jump boxes, CI pipelines, or management servers,
+            giving you flexible control over where and how automation executes.
           </li>
         </ul>
       </div>
@@ -485,11 +502,11 @@ services:
       <div class="download-section">
         <h2>Ready to Get Started?</h2>
         <p>
-          Download or create your SSH configuration YAML file, customize it for your environment,
-          and plug it into your automation workflows.
+          Build a simple Python SSH script, test it against a lab switch or router, and then expand
+          it into a reusable tool for your entire AutoSec environment.
         </p>
-        <!-- Point this href to your actual YAML file or repo if you have one -->
-        <a href="#" class="btn">View Sample SSH YAML</a>
+        <!-- Point this href to your actual .py file or repo if you have one -->
+        <a href="#" class="btn">View Sample Python Script</a>
       </div>
     </section>
 
