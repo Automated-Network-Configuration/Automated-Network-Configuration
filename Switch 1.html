@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIU AutoSec - Python & SSH Automation</title>
+  <title>FIU AutoSec - Network Switches Configuration Guide</title>
   <style>
     :root {
       --fiu-blue: #081E3F;
@@ -92,7 +92,7 @@
       background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
     }
 
-    /* Main content card */
+    /* Generic card */
     .content-card {
       background: var(--white);
       border-radius: 15px;
@@ -108,433 +108,91 @@
       }
     }
 
-    /* Intro */
-    .intro {
-      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
-      border-left: 5px solid var(--fiu-gold);
-      padding: 26px;
-      border-radius: 12px;
-      margin-bottom: 32px;
-    }
-
-    .intro h2 {
+    .section-title {
       color: var(--fiu-blue);
-      margin-bottom: 12px;
-      font-size: 1.8rem;
-    }
-
-    .intro p {
-      font-size: 1.05rem;
-      color: var(--text-gray);
-    }
-
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin: 32px 0 10px;
-    }
-
-    .feature-card {
-      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
-      color: var(--white);
-      padding: 26px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      transition: all 0.3s ease;
-      opacity: 0; /* animated */
-      border: 2px solid transparent;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-      border-color: var(--fiu-gold);
-    }
-
-    .feature-card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .feature-card .icon {
+      margin-bottom: 20px;
       font-size: 1.9rem;
     }
 
-    .feature-card p {
-      font-size: 0.96rem;
+    .section-subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--dark-gray);
     }
 
-    /* Usage sections */
-    .usage-section {
-      background: var(--light-gray);
-      padding: 26px;
+    /* Intro block */
+    .intro-section {
+      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+      border-left: 5px solid var(--fiu-gold);
+      padding: 24px;
       border-radius: 12px;
-      margin: 26px 0;
+      margin-bottom: 28px;
     }
 
-    .usage-section h2 {
+    .intro-section h2 {
       color: var(--fiu-blue);
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       font-size: 1.7rem;
     }
 
-    .usage-section p {
-      margin-bottom: 10px;
-      color: var(--dark-gray);
+    .intro-section p {
+      font-size: 1.02rem;
+      color: var(--text-gray);
     }
 
-    .code-block {
-      background: var(--dark-gray);
-      color: #e2e8f0;
-      padding: 16px 18px;
-      border-radius: 8px;
-      font-family: "Courier New", monospace;
-      overflow-x: auto;
-      margin: 12px 0 16px;
-      font-size: 0.9rem;
-      border-left: 4px solid var(--fiu-gold);
-      white-space: pre;
-    }
-
-    /* Warning box */
-    .warning {
-      background: #fff3cd;
-      border: 2px solid var(--fiu-gold);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 24px 0;
-    }
-
-    .warning h4 {
-      color: #856404;
-      margin-bottom: 10px;
-      font-size: 1.15rem;
-    }
-
-    .warning p {
-      color: #664d03;
-      font-size: 0.98rem;
-    }
-
-    /* Bullet cards in second usage section */
-    .bullet-card {
-      margin: 15px 0;
-      padding: 15px;
-      background: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      list-style: none;
-    }
-
-    /* Download section */
-    .download-section {
-      text-align: center;
-      padding: 32px 0 10px;
-    }
-
-    .download-section h2 {
-      color: var(--fiu-blue);
-      margin-bottom: 16px;
-      font-size: 1.8rem;
-    }
-
-    .download-section p {
-      margin-bottom: 20px;
-      color: var(--dark-gray);
-      font-size: 1.05rem;
-    }
-
-    .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--fiu-gold) 0%, var(--fiu-light-gold) 100%);
-      color: var(--fiu-blue);
-      padding: 14px 36px;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(182, 134, 44, 0.35);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(182, 134, 44, 0.55);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      color: var(--white);
-      padding: 28px 20px 10px;
+    /* Columns / lists */
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
       margin-top: 20px;
     }
 
-    footer p {
-      font-size: 0.95rem;
-      opacity: 0.9;
+    ul {
+      margin-left: 22px;
+      margin-top: 8px;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .content-card {
-        padding: 24px;
-      }
-
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        flex-direction: column;
-      }
-
-      .nav-links a {
-        width: 100%;
-        text-align: center;
-      }
+    li {
+      margin: 6px 0;
+      line-height: 1.7;
     }
 
-    /* Animation */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Info boxes for pitfalls */
+    .info-box {
+      background: #FDFDFE;
+      border-left: 5px solid var(--fiu-blue);
+      padding: 18px 20px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      opacity: 0; /* animated */
     }
 
-    .animate-in {
-      animation: fadeInUp 0.6s ease-out forwards;
+    .info-box h4 {
+      color: var(--fiu-blue);
+      margin-bottom: 6px;
+      font-size: 1.15rem;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Header -->
-    <header>
-      <h1>🔐 AutoSec - Python & SSH Automation</h1>
-      <p>
-        Python-based SSH automation to keep your network configuration fast, repeatable, and secure.
-      </p>
 
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="About.html">About</a></li>
-          <li><a href="Switch 1.html">Switch 1</a></li>
-          <li><a href="Router.html">Router</a></li>
-          <li><a href="Switch 2.html">Failover Switch</a></li>
-          <li><a href="usage.html">usage</a></li>
-        </ul>
-      </nav>
-    </header>
+    .info-box h5 {
+      margin-top: 10px;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.98rem;
+    }
 
-    <!-- Main content -->
-    <section class="content-card">
-      <div class="intro">
-        <h2>What does the Python script do?</h2>
-        <p>
-        This Python-based automation script manages SSH and COM connections, as well as configuration tasks, across network devices. 
-        It standardizes settings, reduces manual command-line interface operations, and enables repeatable workflows for switches, routers, and servers, 
-        functioning similarly to SCCM Configuration Manager for Windows.
-        </p>
-      </div>
+    .info-box p {
+      margin: 4px 0;
+      font-size: 0.96rem;
+    }
 
-      <!-- Feature cards -->
-      <div class="features">
-        <div class="feature-card">
-          <h3><span class="icon">🔑</span>Multiple Authentication</h3>
-          <p>
-            Use passwords or SSH keys with libraries like <code>paramiko</code> or <code>netmiko</code>,
-            giving you flexible authentication per device or environment.
-          </p>
-        </div>
+    /* Automation card */
+    .automation-card {
+      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+      border-radius: 15px;
+      padding: 24px;
+      margin-top: 10px;
+    }
 
-        <div class="feature-card">
-          <h3><span class="icon">🌐</span>Multi-Host Management</h3>
-          <p>
-            Loop through multiple hosts from a Python list or inventory file, applying the same logic to
-            production, staging, and lab devices with a single script.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3><span class="icon">🚇</span>Consistent Configs</h3>
-          <p>
-            Send standardized configuration commands over SSH to switches, routers, and servers, keeping
-            network behavior predictable and documented in code.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3><span class="icon">⚙️</span>Rapid Deployment</h3>
-          <p>
-            Push updates, patch changes, or new settings to dozens of devices in minutes instead of hours
-            of manual CLI sessions.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3><span class="icon">🤖</span>Automation Friendly</h3>
-          <p>
-            Integrate Python scripts into CI/CD pipelines, cron jobs, or orchestration tools to schedule
-            checks and configuration tasks automatically.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3><span class="icon">🔧</span>Error Reduction</h3>
-          <p>
-            Centralize commands and logic in one script, reducing the chance of mistyped commands or
-            inconsistent setups between devices.
-          </p>
-        </div>
-      </div>
-
-      <!-- Usage section -->
-      <div class="usage-section">
-        <h2>How to Use a Python SSH Automation Script</h2>
-
-        <p><strong>1. Define your device settings:</strong></p>
-        <div class="code-block">
-import netmiko
-
-device = {
-    "device_type": "cisco_ios",
-    "ip": "192.168.1.100",
-    "username": "admin",
-    "password": "your_password",
-    "secret": "enable_password",
-}
-        </div>
-
-        <p><strong>2. Connect and run commands:</strong></p>
-        <div class="code-block">
-from netmiko import ConnectHandler
-
-connection = ConnectHandler(**device)
-connection.enable()
-
-commands = [
-    "hostname AutoSec-SW1",
-    "interface vlan 1",
-    "ip address 192.168.1.5 255.255.255.0",
-    "no shutdown",
-]
-
-output = connection.send_config_set(commands)
-print(output)
-
-connection.save_config()
-connection.disconnect()
-        </div>
-
-        <p><strong>3. Extend to multiple devices:</strong></p>
-        <div class="code-block">
-devices = [device1, device2, device3]
-
-for dev in devices:
-    with ConnectHandler(**dev) as conn:
-        conn.enable()
-        conn.send_config_set(commands)
-        conn.save_config()
-        print(f"Configured {dev['ip']}")
-        </div>
-      </div>
-
-      <!-- Warning -->
-      <div class="warning">
-        <h4>⚠️ Security Notice</h4>
-        <p>
-          Never hard-code real passwords or private keys in your Python scripts. Use environment
-          variables, encrypted vaults, or secret managers. Limit which hosts and users can be
-          targeted by automation, and always test scripts in a lab before running them on
-          production devices.
-        </p>
-      </div>
-
-      <!-- Why Python automation -->
-      <div class="usage-section">
-        <h2>Why Use Python for SSH Automation?</h2>
-        <ul style="list-style-type: none; padding: 0;">
-          <li class="bullet-card">
-            <strong>🔧 Repeatable Commands:</strong>
-            Put your “golden config” into Python lists and functions so you can apply the same
-            changes over and over without retyping.
-          </li>
-
-          <li class="bullet-card">
-            <strong>🌍 Scales Across Environments:</strong>
-            Target dev, test, and prod with different device lists or credentials while using the
-            same core automation logic.
-          </li>
-
-          <li class="bullet-card">
-            <strong>🚇 Deep Access Control:</strong>
-            Use SSH tunnels, jump hosts, and role-based accounts while still controlling everything
-            from a single Python entry point.
-          </li>
-
-          <li class="bullet-card">
-            <strong>🔑 Strong Key Usage:</strong>
-            Encourage key-based authentication instead of passwords and rotate keys with automated
-            routines when needed.
-          </li>
-
-          <li class="bullet-card">
-            <strong>🤖 Integrates Everywhere:</strong>
-            Python scripts can run on laptops, jump boxes, CI pipelines, or management servers,
-            giving you flexible control over where and how automation executes.
-          </li>
-        </ul>
-      </div>
-
-      <!-- Download / CTA -->
-      <div class="download-section">
-        <h2>Ready to Get Started?</h2>
-        <p>
-          Build a simple Python SSH script, test it against a lab switch or router, and then expand
-          it into a reusable tool for your entire AutoSec environment.
-        </p>
-        <!-- Point this href to your actual .py file or repo if you have one -->
-        <a href="#" class="btn">View Sample Python Script</a>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 AutoSec. All rights reserved.</p>
-    </footer>
-  </div>
-
-  <script>
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.content-card, .feature-card').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
-</body>
-</html>
+    .automation-card h2 {
+      display: flex;
