@@ -295,4 +295,52 @@
 
         <a href="switch1.html" class="feature-card">
           <h3>🧩 Switch 1</h3>
-          <p>Explore how switches play a key role in network automation and seg
+          <p>Explore how switches play a key role in network automation and segmentation.</p>
+        </a>
+
+        <a href="router.html" class="feature-card">
+          <h3>🌐 Router</h3>
+          <p>Dive into router configurations, routing concepts, and practical security examples.</p>
+        </a>
+
+        <a href="switch2.html" class="feature-card">
+          <h3>🔁 Switch 2</h3>
+          <p>Implement a second switch to create a fully functional automated environment.</p>
+        </a>
+
+        <a href="yaml.html" class="feature-card">
+          <h3>📄 YAML Files</h3>
+          <p>Discover how YAML files simplify automation scripts and infrastructure as code.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 AutoSec. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe feature cards + content cards
+    document.querySelectorAll('.content-card, .feature-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
