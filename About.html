@@ -441,10 +441,10 @@ for dev in devices:
       <div class="warning">
         <h4>⚠️ Security Notice</h4>
         <p>
-          Never hard-code real passwords or private keys in your Python scripts. Use environment
-          variables, encrypted vaults, or secret managers. Limit which hosts and users can be
-          targeted by automation, and always test scripts in a lab before running them on
-          production devices.
+          Real passwords or private keys should not be hard-coded in Python scripts.
+          Instead, utilize environment variables, encrypted vaults, or secret managers. 
+          Restrict automation to specific hosts and users, 
+          and conduct thorough testing in a laboratory environment prior to deployment on production devices.
         </p>
       </div>
 
@@ -453,26 +453,25 @@ for dev in devices:
         <ul style="list-style-type: none; padding: 0;">
           <li class="bullet-card">
             <strong>🔧 Repeatable Commands:</strong>
-            Put your “golden config” into Python lists and functions so you can apply the same
-            changes over and over without retyping.
+          Storing standardized configurations in Python lists and
+          functions enables consistent application of changes without manual repetition.
           </li>
 
           <li class="bullet-card">
             <strong>🌍 Scales Across Environments:</strong>
-            Target dev, test, and prod with different device lists or credentials while using the
-            same core automation logic.
+            Python automation can target development, testing, 
+            and production environments by utilizing different device lists or credentials while maintaining consistent core logic.
           </li>
 
           <li class="bullet-card">
-            <strong>🚇 Deep Access Control:</strong>
-            Use SSH tunnels, jump hosts, and role-based accounts while still controlling everything
-            from a single Python entry point.
+            <strong>🚇 Comprehensive Access Control:</strong>
+            SSH tunnels, jump hosts, and role-based accounts can be managed centrally through a single Python entry point.
           </li>
 
           <li class="bullet-card">
-            <strong>🔑 Strong Key Usage:</strong>
-            Encourage key-based authentication instead of passwords and rotate keys with automated
-            routines when needed.
+            <strong>🔑 Robust Key Management </strong>
+             Key-based authentication is preferred over password-based methods, 
+            and automated routines can facilitate regular key rotation as required
           </li>
 
           <li class="bullet-card">
