@@ -1,46 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIU AutoSec</title>
-  <link rel="stylesheet" href="css/fiu-style.css">
+  <title>AutoSec</title>
+  <link rel="stylesheet" href="stylesheet.css">
 </head>
-
 <body>
-<div class="container">
 
-<header>
-  <h1>🔐 FIU AutoSec</h1>
-  <p>Network Automation & Configuration Training</p>
+  <!-- Header/Top of Page -->
+  <header class="header">
+    <div class="container">
+      <nav>
+        <h1 class="logo">AutoSec</h1>
+      </nav>
+      <p>Your hub for automated network configuration learning</p>
+    </div>
+  </header>
 
-  <nav>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="switch-config.html">Switch Script</a></li>
-    </ul>
-  </nav>
-</header>
+  <!-- Welcome/Introduction Section -->
+  <section id="welcome" class="intro container">
+    <h2>Welcome to AutoSec</h2>
+    <p>
+      AutoSec is a company that teaches online users about Automated Network Configuration
+      Environments for IT. Our goal is to teach people about the importance of online safety,
+      routers, switches, YAML files, and Python scripts.
+    </p>
+    <a href="About.html" class="download-btn">Learn more about us here!</a>
+  </section>
 
-<section class="content-card">
-  <h2>Welcome</h2>
-  <p>This platform teaches automation using Python, YAML, and real Cisco devices.</p>
+  <!-- Section that provides links to other pages -->
+  <main class="content container">
+    <section id="more-info" class="features">
+      <div class="feature-card">
+        <h3>About Us Page</h3>
+        <p>Learn more about our mission, values, and team.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Switch 1 Page</h3>
+        <p>Explore how switches play a key role in network automation.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Router Page</h3>
+        <p>Dive into router configurations and practical examples.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Switch 2 Page</h3>
+        <p>Implement Switch 2 to create a fully functional automated environment.</p>
+      </div>
+      <div class="feature-card">
+        <h3>YAML Files Page</h3>
+        <p>Discover how YAML files simplify automation scripts.</p>
+      </div>
+    </section>
+  </main>
 
-  <div class="features-grid">
-    <div class="feature-card"><h3>🤖 Automation</h3><p>Deploy configs in seconds.</p></div>
-    <div class="feature-card"><h3>📡 VLAN & QoS</h3><p>Master network segmentation.</p></div>
-    <div class="feature-card"><h3>🔧 Real Hardware</h3><p>Works with Cisco console automation.</p></div>
-  </div>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 AutoSec. All rights reserved.</p>
+    </div>
+  </footer>
 
-  <br><a class="btn" href="switch-config.html">Go to Switch Script →</a>
-</section>
-
-<footer>
-  <p>© 2025 FIU AutoSec Project</p>
-</footer>
-
-</div>
-
-<script src="js/animations.js"></script>
 </body>
 </html>
