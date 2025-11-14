@@ -4,14 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FIU AutoSec - Capstone Project</title>
-</head>
-
-<body>
-  <h1><a href="/index.html">FIU AutoSec - Capstone Project</a></h1>
-</body>
-</html>
-<style
-
+  <style>
     :root {
       --fiu-blue: #081E3F;
       --fiu-gold: #B6862C;
@@ -49,6 +42,17 @@
       color: var(--white);
       padding: 60px 20px 40px;
       margin-bottom: 30px;
+    }
+
+    .home-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .home-link:hover {
+      transform: scale(1.05);
     }
 
     header h1 {
@@ -343,7 +347,9 @@
   <div class="container">
     <!-- Header -->
     <header>
-      <h1>🔐 FIU AutoSec - Capstone Switch Script</h1>
+      <a href="index.html" class="home-link">
+        <h1>🔐 FIU AutoSec - Capstone Switch Script</h1>
+      </a>
       <p>
         Automated Cisco switch configuration using Python and <code>pyserial</code> to deliver
         consistent VLAN and voice-ready layouts for FIU lab environments.
@@ -383,7 +389,7 @@
           <h3><span class="icon">🧷</span>Auto Port Detection</h3>
           <p>
             Uses <code>serial.tools.list_ports</code> to locate the correct USB/serial COM port, so
-            you don’t have to manually guess between <code>COM3</code>, <code>COM4</code>, or
+            you don't have to manually guess between <code>COM3</code>, <code>COM4</code>, or
             <code>/dev/ttyUSB0</code>.
           </p>
         </div>
@@ -416,7 +422,7 @@
           <h3><span class="icon">🛡️</span>Secure Defaults</h3>
           <p>
             Implements console and VTY protections, local user accounts, and encrypted secrets so
-            devices aren’t left with factory-default access.
+            devices aren't left with factory-default access.
           </p>
         </div>
 
@@ -489,7 +495,7 @@ import re</div>
           <li>
             <strong><code>main()</code>:</strong> Calls <code>detect_com_port()</code>, runs
             <code>configure_switch()</code>, and wraps everything in a try/except with a friendly
-            <code>[ERROR]</code> message and a “Press Enter to exit...” prompt.
+            <code>[ERROR]</code> message and a "Press Enter to exit..." prompt.
           </li>
         </ul>
       </div>
@@ -568,7 +574,7 @@ import re</div>
       <ul>
         <li>Power on the switch.</li>
         <li>Connect the USB-to-serial adapter to your PC.</li>
-        <li>Connect the console cable from the adapter to the switch’s console port.</li>
+        <li>Connect the console cable from the adapter to the switch's console port.</li>
       </ul>
 
       <h3 class="section-subtitle">4.2 Verify Python &amp; <code>pyserial</code></h3>
