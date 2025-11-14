@@ -4,23 +4,251 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Switch 2: Purpose, Configuration, and Benefits</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <style>
+        :root {
+            --fiu-blue: #081E3F;
+            --fiu-gold: #B6862C;
+            --fiu-light-blue: #1B4B8C;
+            --fiu-light-gold: #D4A556;
+            --white: #FFFFFF;
+            --light-gray: #F5F7FA;
+            --dark-gray: #2D3748;
+            --text-gray: #4A5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-gray);
+            background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            color: var(--white);
+            padding: 60px 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 28px auto 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(8, 30, 63, 0.3);
+            font-size: 0.98rem;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(8, 30, 63, 0.5);
+            background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
+        }
+
+        .content-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            opacity: 0; /* animated in */
+        }
+
+        @media (min-width: 768px) {
+            .content-card {
+                padding: 40px;
+            }
+        }
+
+        .section-title {
+            color: var(--fiu-blue);
+            margin-bottom: 20px;
+            font-size: 1.9rem;
+            text-align: left;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--dark-gray);
+        }
+
+        /* Intro block */
+        .intro-section {
+            background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+            border-left: 5px solid var(--fiu-gold);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+        }
+
+        .intro-section h2 {
+            color: var(--fiu-blue);
+            margin-bottom: 10px;
+            font-size: 1.7rem;
+        }
+
+        .intro-section p {
+            font-size: 1.02rem;
+            color: var(--text-gray);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+            border-left: 4px solid var(--fiu-blue);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0 10px;
+        }
+
+        .info-box h3 {
+            color: var(--fiu-blue);
+            margin-bottom: 8px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--fiu-blue);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--white);
+            padding: 28px 20px 10px;
+            margin-top: 30px;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .content-card {
+                padding: 24px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
 </head>
 <body>
-    <div>
+    <div class="container">
+        <!-- Global Header / Brand -->
         <header>
-            <h1>Switch 2: Purpose, Configuration, and Benefits</h1>
-            <p><b>Understanding why a second switch is vital for scalability, reliability, and performance.</b></p>
+            <h1>🔐 AutoSec</h1>
+            <p>
+                Implement automation processes that eliminate reliance on manual operations and minimize
+                the risk of human error. A centralized resource for secure network configuration education,
+                emphasizing standardization, repeatability, and resilience.
+            </p>
+
+            <!-- Global Navigation (same as index) -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="switch1.html">Switch 1</a></li>
+                    <li><a href="router.html">Router</a></li>
+                    <li><a href="switch2.html">Fail Over Switch</a></li>
+                    <li><a href="usage.html">Usage</a></li>
+                </ul>
+            </nav>
         </header>
 
+        <!-- Main content cards -->
         <main>
-            <section>
-                <h2>🧩 The Purpose of Switch 2</h2>
-                <p><b>Switch 2 extends the network’s capacity and resilience by adding additional connection points and supporting distributed traffic management. It ensures that as more devices join the network, performance and security remain consistent.</b></p>
+            <section class="content-card">
+                <div class="intro-section">
+                    <h2>Switch 2: Purpose, Configuration, and Benefits</h2>
+                    <p>Understanding why a second switch is vital for scalability, reliability, and performance.</p>
+                </div>
             </section>
 
-            <section>
-                <h2>💡 Why a Second Switch Is Good and Necessary</h2>
+            <section class="content-card">
+                <h2 class="section-title">🧩 The Purpose of Switch 2</h2>
+                <p>Switch 2 extends the network's capacity and resilience by adding additional connection points and supporting distributed traffic management. It ensures that as more devices join the network, performance and security remain consistent.</p>
+            </section>
+
+            <section class="content-card">
+                <h2 class="section-title">💡 Why a Second Switch Is Good and Necessary</h2>
                 <ol>
                     <li><strong>Increased Port Capacity:</strong> Expands the number of available network connections for additional users and devices.</li>
                     <li><strong>Improved Network Segmentation:</strong> Allows separation of traffic using VLANs for better organization and security.</li>
@@ -30,9 +258,9 @@
                 </ol>
             </section>
 
-            <section>
-                <h2>🛡️ Protection When Switch 1 Fails</h2>
-                <p><b>Switch 2 plays a critical role in keeping the network operational when Switch 1 encounters hardware failure, misconfiguration, or power loss. Properly linking the two switches provides redundancy that prevents total network downtime.</b></p>
+            <section class="content-card">
+                <h2 class="section-title">🛡️ Protection When Switch 1 Fails</h2>
+                <p>Switch 2 plays a critical role in keeping the network operational when Switch 1 encounters hardware failure, misconfiguration, or power loss. Properly linking the two switches provides redundancy that prevents total network downtime.</p>
                 <ul>
                     <li><strong>Automatic Failover:</strong> Redundant trunk links allow Switch 2 to continue forwarding traffic if Switch 1 goes offline.</li>
                     <li><strong>Alternate Path Routing:</strong> Data automatically reroutes through Switch 2, ensuring devices stay connected to essential services.</li>
@@ -41,12 +269,14 @@
                     <li><strong>Power Redundancy:</strong> If each switch uses a separate power source, a power issue on one will not take down the whole network.</li>
                     <li><strong>Fast Recovery:</strong> Configurations stored on Switch 2 can be used to restore Switch 1 rapidly after maintenance or replacement.</li>
                 </ul>
-                <p><b>This redundancy design is essential in enterprise networks, where continuous access and minimal downtime are priorities.</b></p>
+                <div class="info-box">
+                    <p>This redundancy design is essential in enterprise networks, where continuous access and minimal downtime are priorities.</p>
+                </div>
             </section>
 
-            <section>
-                <h2>⚙️ Configuring Switch 2</h2>
-                <p><b>When adding a second switch to your network, proper configuration ensures optimal performance and security.</b></p>
+            <section class="content-card">
+                <h2 class="section-title">⚙️ Configuring Switch 2</h2>
+                <p>When adding a second switch to your network, proper configuration ensures optimal performance and security.</p>
                 <ul>
                     <li>Configure trunk ports between Switch 1 and Switch 2 for VLAN traffic.</li>
                     <li>Enable Spanning Tree Protocol (STP) to prevent network loops.</li>
@@ -56,8 +286,8 @@
                 </ul>
             </section>
 
-            <section>
-                <h2>✅ Best Practices for Multi-Switch Networks</h2>
+            <section class="content-card">
+                <h2 class="section-title">✅ Best Practices for Multi-Switch Networks</h2>
                 <ul>
                     <li>Label cables and ports for easy maintenance.</li>
                     <li>Regularly back up both switch configurations.</li>
@@ -67,11 +297,37 @@
                 </ul>
             </section>
 
-            <section>
-                <h2>Conclusion</h2>
-                <p>Adding a second switch strengthens the entire network by improving performance, scalability, and fault tolerance. Even if Switch 1 fails, Switch 2 ensures continued connectivity and quick recovery. In modern network design, having a secondary switch is not just a convenience — it’s a necessity for ensuring uptime, flexibility, and reliability across all connected systems.</p>
+            <section class="content-card">
+                <h2 class="section-title">Conclusion</h2>
+                <p>Adding a second switch strengthens the entire network by improving performance, scalability, and fault tolerance. Even if Switch 1 fails, Switch 2 ensures continued connectivity and quick recovery. In modern network design, having a secondary switch is not just a convenience — it's a necessity for ensuring uptime, flexibility, and reliability across all connected systems.</p>
             </section>
         </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 AutoSec · FIU Network Automation Capstone</p>
+        </footer>
     </div>
+
+    <script>
+        // Animation script from index.html
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
