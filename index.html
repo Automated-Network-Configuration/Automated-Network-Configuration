@@ -1,67 +1,363 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoSec</title>
-  <link rel="stylesheet" href="stylesheet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIU AutoSec - [Page Title]</title>
+  <style>
+    :root {
+      --fiu-blue: #081E3F;
+      --fiu-gold: #B6862C;
+      --fiu-light-blue: #1B4B8C;
+      --fiu-light-gold: #D4A556;
+      --white: #FFFFFF;
+      --light-gray: #F5F7FA;
+      --dark-gray: #2D3748;
+      --text-gray: #4A5568;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-gray);
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header Styles */
+    header {
+      text-align: center;
+      color: var(--white);
+      padding: 60px 20px;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    header p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      opacity: 0.95;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(8, 30, 63, 0.3);
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(8, 30, 63, 0.5);
+      background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
+    }
+
+    /* Content Card Styles */
+    .content-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .intro-section {
+      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+      border-left: 5px solid var(--fiu-gold);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    .intro-section h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 15px;
+      font-size: 2rem;
+    }
+
+    .intro-section p {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+    }
+
+    /* Feature Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      color: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(8, 30, 63, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(8, 30, 63, 0.4);
+      border-color: var(--fiu-gold);
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-card .icon {
+      font-size: 2rem;
+    }
+
+    /* Code Blocks */
+    .code-section {
+      background: var(--light-gray);
+      padding: 30px;
+      border-radius: 12px;
+      margin: 30px 0;
+    }
+
+    .code-section h2,
+    .code-section h3 {
+      color: var(--fiu-blue);
+      margin-bottom: 20px;
+    }
+
+    .code-block {
+      background: var(--dark-gray);
+      color: #E2E8F0;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--fiu-gold);
+    }
+
+    /* Lists */
+    ul, ol {
+      margin-left: 25px;
+      margin-top: 10px;
+    }
+
+    li {
+      margin: 8px 0;
+      line-height: 1.7;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, var(--fiu-gold) 0%, var(--fiu-light-gold) 100%);
+      color: var(--fiu-blue);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(182, 134, 44, 0.3);
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(182, 134, 44, 0.5);
+    }
+
+    /* Warning Box */
+    .warning {
+      background: #FFF3CD;
+      border: 2px solid var(--fiu-gold);
+      border-radius: 10px;
+      padding: 25px;
+      margin: 25px 0;
+    }
+
+    .warning h4 {
+      color: #856404;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+
+    .warning p {
+      color: #664D03;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: linear-gradient(135deg, #E8F4FD 0%, #D4E9F7 100%);
+      border-left: 5px solid var(--fiu-blue);
+      padding: 25px;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+
+    .info-box h3 {
+      color: var(--fiu-blue);
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: var(--white);
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+
+    footer p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .content-card {
+        padding: 25px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        flex-direction: column;
+      }
+
+      .nav-links a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Header/Top of Page -->
-  <header class="header">
-    <div class="container">
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🔐 FIU AutoSec</h1>
+      <p>Automated Network Configuration for Modern IT Infrastructure</p>
+      
       <nav>
-        <h1 class="logo">AutoSec</h1>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="Anatholyswitch.html">Network Switches</a></li>
+          <li><a href="Router.html">Routers</a></li>
+          <li><a href="Switch2.html">Switch 2</a></li>
+          <li><a href="usage.html">Usage Guide</a></li>
+        </ul>
       </nav>
-      <p>Your hub for automated network configuration learning</p>
-    </div>
-  </header>
+    </header>
 
-  <!-- Welcome/Introduction Section -->
-  <section id="welcome" class="intro container">
-    <h2>Welcome to AutoSec</h2>
-    <p>
-      AutoSec is a company that teaches online users about Automated Network Configuration Environments for IT.
-      Our goal is to teach people about the importance of online safety, routers,
-      switches, YAML files, and Python scripts.
-    </p>
-    <p> </p>
-    <a href="About.html" class="download-btn">Learn more about us here!</a>
-  </section>
+    <!-- PAGE-SPECIFIC CONTENT GOES HERE -->
+    <!-- Each HTML file will have its unique content in this section -->
 
-  <!-- Section that provides links to other pages -->
-  <main class="content container">
-    <section id="more-info" class="features">
-      <div class="feature-card">
-        <h3>About Us Page</h3>
-        <p>Learn more about our mission, values, and team.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Switch 1 Page</h3>
-        <p>Explore how switches play a key role in network automation.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Router Page</h3>
-        <p>Dive into Router configurations and practical examples.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Switch  2 Page</h3>
-        <p>Implement Switch 2 to creater a fully functional automated environment.</p>
-      </div>
-      <div class="feature-card">
-        <h3>YAML Files Page</h3>
-        <p>Discover how YAML files simplify automation scripts.</p>
-      </div>
-    </section>
-  </main>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 FIU AutoSec. All rights reserved.</p>
+      <p style="margin-top: 10px; font-size: 0.9rem;">
+        Florida International University - Network Automation Education
+      </p>
+    </footer>
+  </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 AutoSec. All rights reserved.</p>
-    </div>
-  </footer>
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
 
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all feature cards and content cards
+    document.querySelectorAll('.feature-card, .content-card').forEach(card => {
+      card.style.opacity = '0';
+      observer.observe(card);
+    });
+  </script>
 </body>
 </html>
