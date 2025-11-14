@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Network Switches: Configuration Guide & Common Pitfalls</title>
-  <link rel="stylesheet" href="stylesheet.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoSec - Network Switches Configuration Guide</title>
+  <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
   <div class="container">
     <!-- Header -->
     <header>
-      <h1>🔌 Network Switches: Configuration Guide</h1>
+      <h1>🔌 AutoSec - Network Switches</h1>
       <p>Understanding switches, avoiding common pitfalls, and preventing network disasters.</p>
 
       <nav>
@@ -18,207 +18,195 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="About.html">About</a></li>
           <li><a href="switch1.html">Switch 1</a></li>
-          <li><a href="router.html">Router</a></li>
-          <li><a href="switch2.html">Switch 2</a></li>
+          <li><a href="Router.html">Router</a></li>
+          <li><a href="Switch 2.html">Fail Over Switch</a></li>
           <li><a href="yaml.html">Python Scripts</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- What Are Switches -->
-    <section class="content-card">
-      <div class="intro-section">
-        <h2>What Are Network Switches?</h2>
-        <p>
-          Network switches are fundamental networking devices that operate at the Data Link Layer (Layer 2) of the OSI model.
-          They create a network by connecting multiple devices and enabling communication between them within a local area network (LAN).
-        </p>
-      </div>
+    <main>
+      <!-- What are switches -->
+      <section class="content-card">
+        <div class="intro-section">
+          <h2>What Are Network Switches?</h2>
+          <p>
+            Network switches are fundamental networking devices that operate at the Data Link Layer (Layer 2) of the OSI model.
+            They create a network by connecting multiple devices and enabling communication between them within a local area network (LAN).
+          </p>
+        </div>
 
-      <div class="features-grid">
+        <div class="features-grid">
+          <div class="info-box">
+            <h3>How Switches Work</h3>
+            <ul>
+              <li>Learn MAC addresses of connected devices</li>
+              <li>Build and maintain MAC address tables</li>
+              <li>Forward frames based on destination MAC addresses</li>
+              <li>Create separate collision domains for each port</li>
+              <li>Provide full-duplex communication</li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h3>Common Switch Uses</h3>
+            <ul>
+              <li>Connecting computers, servers, and printers in offices</li>
+              <li>Creating network segments in data centers</li>
+              <li>Linking access points in wireless networks</li>
+              <li>Connecting IoT devices in smart buildings</li>
+              <li>Building redundant network paths for reliability</li>
+              <li>Implementing VLANs for network segmentation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Misconfigurations -->
+      <section class="content-card">
+        <h2 class="section-title">Common Switch Misconfigurations</h2>
+        <p class="section-subtitle">
+          Even experienced network administrators can fall into these configuration traps. These mistakes can compromise
+          both security and performance across the entire environment.
+        </p>
+
         <div class="info-box">
-          <h3>How Switches Work</h3>
+          <h3>1. Default Credentials and Settings</h3>
+          <p>
+            Many switches ship with default usernames/passwords (e.g., <code>admin/admin</code>) and insecure default configurations.
+          </p>
+          <h4>Negative Consequences</h4>
           <ul>
-            <li>Learn MAC addresses of connected devices.</li>
-            <li>Build and maintain MAC address tables.</li>
-            <li>Forward frames based on destination MAC addresses.</li>
-            <li>Create separate collision domains for each port.</li>
-            <li>Provide full-duplex communication.</li>
+            <li>Unauthorized access to network infrastructure</li>
+            <li>Complete network compromise</li>
+            <li>Data theft and industrial espionage</li>
+            <li>Compliance violations (GDPR, HIPAA, PCI-DSS)</li>
           </ul>
         </div>
 
         <div class="info-box">
-          <h3>Common Switch Uses</h3>
+          <h3>2. Improper VLAN Configuration</h3>
+          <p>
+            Misconfigured VLANs can lead to unintended access, devices in the wrong VLAN, and VLAN hopping vulnerabilities.
+          </p>
+          <h4>Negative Consequences</h4>
           <ul>
-            <li>Connecting computers, servers, and printers in offices.</li>
-            <li>Creating network segments in data centers.</li>
-            <li>Linking access points in wireless networks.</li>
-            <li>Connecting IoT devices in smart buildings.</li>
-            <li>Building redundant network paths for reliability.</li>
-            <li>Implementing VLANs for network segmentation.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Misconfigurations -->
-    <section class="content-card">
-      <h2 class="section-title">Common Switch Misconfigurations</h2>
-      <p class="section-subtitle">
-        Even experienced network administrators can fall into these traps. Each mistake can compromise both security and performance.
-      </p>
-
-      <div class="info-box">
-        <h3>1. Default Credentials and Settings</h3>
-        <p>
-          Many switches ship with default usernames/passwords (e.g., <code>admin/admin</code>) and configurations that prioritize
-          ease of setup over security.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • Unauthorized access to network infrastructure<br>
-            • Complete network compromise<br>
-            • Data theft and industrial espionage<br>
-            • Compliance violations (GDPR, HIPAA, PCI-DSS)
-          </p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>2. Improper VLAN Configuration</h3>
-        <p>
-          Misconfigured VLANs can lead to unintended network access, with devices ending up in the wrong VLANs or VLAN-hopping risks.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • Cross-network contamination<br>
-            • Bypassing security policies<br>
-            • Unauthorized access to sensitive systems<br>
-            • Network performance degradation
-          </p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>3. Spanning Tree Protocol (STP) Issues</h3>
-        <p>
-          Disabling STP, misconfiguring bridge priorities, or asymmetric STP designs can destabilize the entire switching fabric.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • Broadcast storms causing network outages<br>
-            • Switch MAC table exhaustion<br>
-            • Network loops causing total connectivity loss<br>
-            • Unpredictable network behavior
-          </p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>4. Port Security Neglect</h3>
-        <p>
-          Ignoring features like MAC limiting, sticky MAC, or violation actions leaves the access layer exposed.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • MAC flooding attacks<br>
-            • Unauthorized device connections<br>
-            • Network reconnaissance by attackers<br>
-            • Switch resource exhaustion
-          </p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>5. Trunk Port Misconfigurations</h3>
-        <p>
-          Incorrect trunking, wrong native VLANs, or allowing all VLANs when not needed introduces stealthy attack vectors.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • VLAN hopping attacks<br>
-            • Double-tagging attacks<br>
-            • Unintended network access<br>
-            • Traffic interception possibilities
-          </p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>6. Management Interface Exposure</h3>
-        <p>
-          Leaving management interfaces reachable from production networks, using Telnet/HTTP, or weak access controls is dangerous.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • Remote network takeover<br>
-            • Configuration theft and modification<br>
-            • Credential harvesting<br>
-            • Persistent access for attackers
-          </p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>7. Inadequate Monitoring and Logging</h3>
-        <p>
-          Without proper logging, SNMP monitoring, or port mirroring, you fly blind when incidents occur.
-        </p>
-        <div class="warning">
-          <h4>Negative Consequences</h4>
-          <p>
-            • Undetected security breaches<br>
-            • No forensic capabilities after incidents<br>
-            • Delayed incident response<br>
-            • Compliance audit failures
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Automation -->
-    <section class="content-card">
-      <h2 class="section-title">Automated Switch Configuration</h2>
-      <p class="section-subtitle">
-        Modern network management increasingly relies on automation to ensure consistent, error-free configurations across multiple switches.
-        Python-based automation provides a reliable, repeatable way to deploy switch configurations.
-      </p>
-
-      <div class="features-grid">
-        <div class="info-box">
-          <h3>Why Automate Switch Configuration?</h3>
-          <ul>
-            <li>Eliminates human error in repetitive configuration tasks.</li>
-            <li>Ensures consistency across all switches in the network.</li>
-            <li>Enables version control for network configurations.</li>
-            <li>Speeds up deployment and reduces configuration time.</li>
-            <li>Facilitates disaster recovery and switch replacement.</li>
-            <li>Provides audit trails and documentation.</li>
+            <li>Cross-network contamination</li>
+            <li>Bypassing security policies</li>
+            <li>Unauthorized access to sensitive systems</li>
+            <li>Network performance degradation</li>
           </ul>
         </div>
 
         <div class="info-box">
-          <h3>Automation Workflow (Python + SSH)</h3>
+          <h3>3. Spanning Tree Protocol (STP) Issues</h3>
+          <p>
+            Disabling STP, misconfiguring bridge priorities, or asymmetric STP designs can lead to serious outages.
+          </p>
+          <h4>Negative Consequences</h4>
           <ul>
-            <li><strong>Step 1:</strong> Define device details and commands in a Python script.</li>
-            <li><strong>Step 2:</strong> Validate inputs (IP, credentials, command sets).</li>
-            <li><strong>Step 3:</strong> Script connects to switches via SSH using a library like <code>netmiko</code>.</li>
-            <li><strong>Step 4:</strong> Commands are sent and applied to the switch.</li>
-            <li><strong>Step 5:</strong> Output is captured, verified, and logged.</li>
+            <li>Broadcast storms causing network-wide outages</li>
+            <li>Switch MAC table exhaustion</li>
+            <li>Network loops causing total connectivity loss</li>
+            <li>Unpredictable network behavior</li>
           </ul>
         </div>
-      </div>
 
-      <!-- Python Script Example 1 -->
-      <div class="code-section">
-        <h3>Python Configuration Script for Switch 1</h3>
-        <div class="code-block">from netmiko import ConnectHandler
+        <div class="info-box">
+          <h3>4. Port Security Neglect</h3>
+          <p>
+            Not using port security (MAC limits, sticky MAC, violation actions) leaves the network exposed.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>MAC flooding attacks</li>
+            <li>Unauthorized device connections</li>
+            <li>Network reconnaissance by attackers</li>
+            <li>Switch resource exhaustion</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>5. Trunk Port Misconfigurations</h3>
+          <p>
+            Incorrect native VLANs or allowing all VLANs on trunks increases attack surface.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>VLAN hopping and double-tagging attacks</li>
+            <li>Unintended network access between segments</li>
+            <li>Traffic interception and data exposure</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>6. Management Interface Exposure</h3>
+          <p>
+            Leaving management interfaces reachable from production networks or using insecure protocols (Telnet/HTTP) is dangerous.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Remote network takeover</li>
+            <li>Configuration theft and tampering</li>
+            <li>Credential harvesting</li>
+            <li>Persistent access for attackers</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>7. Inadequate Monitoring and Logging</h3>
+          <p>
+            Without proper logging, SNMP monitoring, or port mirroring, threats can operate unnoticed.
+          </p>
+          <h4>Negative Consequences</h4>
+          <ul>
+            <li>Undetected security breaches</li>
+            <li>No forensic data after incidents</li>
+            <li>Delayed or ineffective incident response</li>
+            <li>Compliance and audit failures</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Automation & Python Script -->
+      <section class="content-card">
+        <h2 class="section-title">Automated Switch Configuration</h2>
+        <p class="section-subtitle">
+          Modern network management increasingly relies on automation to ensure consistent, error-free configurations
+          across multiple switches. Python-based automation gives you a reliable, repeatable way to deploy switch configs.
+        </p>
+
+        <div class="features-grid">
+          <div class="info-box">
+            <h3>Why Automate Switch Configuration?</h3>
+            <ul>
+              <li>Eliminates human error in repetitive configuration tasks</li>
+              <li>Ensures consistency across all switches in the network</li>
+              <li>Enables version control for network configurations</li>
+              <li>Speeds up deployment and reduces configuration time</li>
+              <li>Facilitates disaster recovery and switch replacement</li>
+              <li>Provides audit trails and documentation</li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h3>The Automation Workflow</h3>
+            <ul>
+              <li><strong>Step 1:</strong> Define switch parameters and templates (hostname, VLANs, ports)</li>
+              <li><strong>Step 2:</strong> Python script validates input and prepares configuration commands</li>
+              <li><strong>Step 3:</strong> Script connects to switches via SSH (e.g., using Netmiko)</li>
+              <li><strong>Step 4:</strong> Commands are pushed to the switch and applied</li>
+              <li><strong>Step 5:</strong> Configuration is verified and results are logged</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Python script example -->
+        <div class="code-section">
+          <h3>Python Configuration Script for Switch 1</h3>
+          <div class="code-block">
+import yaml
+from netmiko import ConnectHandler
 
 # Define device details
 cisco_switch = {
@@ -245,111 +233,107 @@ config_commands = [
     "line vty 0 4",
     " password ciscovty",
     " login",
-    " transport input ssh",
+    " transport input telnet ssh",
     "interface range FastEthernet0/10 - 24",
     " shutdown",
+    "end",
+    "write memory",
 ]
 
 def main():
+    # Connect to device
     print("Connecting to switch...")
     connection = ConnectHandler(**cisco_switch)
 
+    # Enter enable mode
     connection.enable()
 
+    # Send configuration commands
     print("Sending configuration...")
     output = connection.send_config_set(config_commands)
     print(output)
 
+    # Save configuration
     print("Saving configuration...")
-    connection.save_config()
+    save_output = connection.save_config()
+    print(save_output)
 
+    # Disconnect
     connection.disconnect()
     print("Configuration complete and connection closed.")
 
 if __name__ == "__main__":
-    main()</div>
-      </div>
+    main()
+          </div>
+        </div>
 
-      <!-- Python Script Example 2 (no YAML) -->
-      <div class="code-section">
-        <h3>Scaling to Multiple Switches with Python</h3>
-        <p>
-          This example shows how to reuse the same configuration logic for multiple switches while logging results.
-        </p>
-        <div class="code-block">from netmiko import ConnectHandler
+        <!-- YAML sample (if you still want to show an Ansible-style config) -->
+        <div class="code-section">
+          <h3>Example Configuration Structure (Automation Tool)</h3>
+          <div class="code-block">
+switches:
+  ---
+- name: Configure Cisco Switch with SSH
+  hosts: switches
+  gather_facts: no
+  connection: network_cli
 
-devices = [
-    {
-        "device_type": "cisco_ios",
-        "ip": "192.168.1.101",
-        "username": "admin",
-        "password": "adminpass",
-        "secret": "StrongPassword123",
-    },
-    {
-        "device_type": "cisco_ios",
-        "ip": "192.168.1.102",
-        "username": "admin",
-        "password": "adminpass",
-        "secret": "StrongPassword123",
-    },
-]
+  tasks:
+    - name: Set hostname
+      cisco.ios.ios_config:
+        lines:
+          - hostname Switch1
 
-base_commands = [
-    "service password-encryption",
-    "no ip http server",
-    "no ip http secure-server",
-]
+    - name: Configure enable secret
+      cisco.ios.ios_config:
+        lines:
+          - enable secret StrongPassword123
 
-for device in devices:
-    print(f"\n--- Connecting to {device['ip']} ---")
-    try:
-        with ConnectHandler(**device) as conn:
-            conn.enable()
-            output = conn.send_config_set(base_commands)
-            print(output)
-            conn.save_config()
-            print(f"Configuration saved on {device['ip']}")
-    except Exception as e:
-        print(f"Error configuring {device['ip']}: {e}")</div>
-      </div>
+    - name: Configure MOTD banner
+      cisco.ios.ios_config:
+        lines:
+          - banner motd #Unauthorized access is prohibited!#
 
-      <div class="info-box">
-        <h3>Critical Reminder</h3>
-        <p>
-          Network switch misconfigurations can have cascading effects throughout your entire infrastructure.
-          A single misconfigured switch can compromise the security of hundreds or thousands of connected devices.
-          Always test configurations in a lab environment before deploying to production, and maintain
-          comprehensive documentation of all network changes.
-        </p>
-      </div>
-    </section>
+    - name: Create VLANs
+      cisco.ios.ios_config:
+        lines:
+          - vlan 10
+          - name Sales
+          - vlan 20
+          - name HR
+          - vlan 30
+          - name IT
+
+    - name: Configure management VLAN IP
+      cisco.ios.ios_config:
+        lines:
+          - ip address 192.168.1.2 255.255.255.0
+          - no shutdown
+        parents: interface vlan 1
+
+    - name: Configure default gateway
+      cisco.ios.ios_config:
+        lines:
+          - ip default-gateway 192.168.1.1
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>Critical Reminder</h3>
+          <p>
+            Network switch misconfigurations can have cascading effects across your entire infrastructure.
+            A single misconfigured switch can compromise the security of hundreds or thousands of devices.
+            Always test configurations in a lab environment before deploying to production, and maintain
+            clear documentation of all network changes.
+          </p>
+        </div>
+      </section>
+    </main>
 
     <!-- Footer -->
     <footer>
       <p>&copy; 2025 AutoSec. All rights reserved.</p>
     </footer>
   </div>
-
-  <script>
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.content-card, .info-box').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
 </body>
 </html>
