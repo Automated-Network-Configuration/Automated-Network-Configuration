@@ -369,14 +369,12 @@
       <div class="intro-section">
         <h2>How the Capstone Switch Configuration Script Works</h2>
         <p>
-          This Python script configures a Cisco switch over the serial console using
-          <code>pyserial</code>. It automatically:
+This Python script configures a Cisco switch through the serial console using the <code>pyserial</code> library. It automatically executes the following tasks:
         </p>
         <ul>
-          <li>Detects the correct COM/USB serial port</li>
-          <li>Logs into the switch console</li>
-          <li>Implements VLAN, voice, QoS, and port configurations</li>
-          <li>Configures hostname, management IP, and MOTD banner</li>
+          <li>Identifies the correct COM or USB serial port</li>
+          <li>* Authenticates access to the switch console and applies VLAN, voice, Quality of Service (QoS), and port configurations.Configures the hostname, management IP address, 
+            and Message of the Day (MOTD) banner.</li>>
           <li>Saves the running configuration to NVRAM</li>
         </ul>
       </div>
