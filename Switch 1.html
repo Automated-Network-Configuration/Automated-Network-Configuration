@@ -1,340 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network Switches: Configuration Guide & Common Pitfalls</title>
-     <link rel="stylesheet" href="stylesheet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIU AutoSec - Python & SSH Automation</title>
+  <style>
+    :root {
+      --fiu-blue: #081E3F;
+      --fiu-gold: #B6862C;
+      --fiu-light-blue: #1B4B8C;
+      --fiu-light-gold: #D4A556;
+      --white: #FFFFFF;
+      --light-gray: #F5F7FA;
+      --dark-gray: #2D3748;
+      --text-gray: #4A5568;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-gray);
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      color: var(--white);
+      padding: 60px 20px 40px;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    header p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: 0.95;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 28px auto 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 10px 22px;
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(8, 30, 63, 0.3);
+      font-size: 0.98rem;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(8, 30, 63, 0.5);
+      background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
+    }
+
+    /* Main content card */
+    .content-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 32px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      opacity: 0; /* animated */
+    }
+
+    @media (min-width: 768px) {
+      .content-card {
+        padding: 40px;
+      }
+    }
+
+    /* Intro */
+    .intro {
+      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
+      border-left: 5px solid var(--fiu-gold);
+      padding: 26px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+    }
+
+    .intro h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+    }
+
+    .intro p {
+      font-size: 1.05rem;
+      color: var(--text-gray);
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin: 32px 0 10px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
+      color: var(--white);
+      padding: 26px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+      opacity: 0; /* animated */
+      border: 2px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+      border-color: var(--fiu-gold);
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-card .icon {
+      font-size: 1.9rem;
+    }
+
+    .feature-card p {
+      font-size: 0.96rem;
+    }
+
+    /* Usage sections */
+    .usage-section {
+      background: var(--light-gray);
+      padding: 26px;
+      border-radius: 12px;
+      margin: 26px 0;
+    }
+
+    .usage-section h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 16px;
+      font-size: 1.7rem;
+    }
+
+    .usage-section p {
+      margin-bottom: 10px;
+      color: var(--dark-gray);
+    }
+
+    .code-block {
+      background: var(--dark-gray);
+      color: #e2e8f0;
+      padding: 16px 18px;
+      border-radius: 8px;
+      font-family: "Courier New", monospace;
+      overflow-x: auto;
+      margin: 12px 0 16px;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--fiu-gold);
+      white-space: pre;
+    }
+
+    /* Warning box */
+    .warning {
+      background: #fff3cd;
+      border: 2px solid var(--fiu-gold);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .warning h4 {
+      color: #856404;
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .warning p {
+      color: #664d03;
+      font-size: 0.98rem;
+    }
+
+    /* Bullet cards in second usage section */
+    .bullet-card {
+      margin: 15px 0;
+      padding: 15px;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      list-style: none;
+    }
+
+    /* Download section */
+    .download-section {
+      text-align: center;
+      padding: 32px 0 10px;
+    }
+
+    .download-section h2 {
+      color: var(--fiu-blue);
+      margin-bottom: 16px;
+      font-size: 1.8rem;
+    }
+
+    .download-section p {
+      margin-bottom: 20px;
+      color: var(--dark-gray);
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--fiu-gold) 0%, var(--fiu-light-gold) 100%);
+      color: var(--fiu-blue);
+      padding: 14px 36px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(182, 134, 44, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(182, 134, 44, 0.55);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: var(--white);
+      padding: 28px 20px 10px;
+      margin-top: 20px;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .content-card {
+        padding: 24px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        flex-direction: column;
+      }
+
+      .nav-links a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+  </style>
 </head>
 <body>
-    <div>
-        <div>
-            <h1>Network Switches: Configuration Guide</h1>
-            <p>Understanding switches, avoiding common pitfalls, and preventing network disasters</p>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🔐 AutoSec - Python & SSH Automation</h1>
+      <p>
+        Python-based SSH automation to keep your network configuration fast, repeatable, and secure.
+      </p>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="Switch 1.html">Switch 1</a></li>
+          <li><a href="Router.html">Router</a></li>
+          <li><a href="Switch 2.html">Failover Switch</a></li>
+          <li><a href="usage.html">usage</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main content -->
+    <section class="content-card">
+      <div class="intro">
+        <h2>What does the Python script do?</h2>
+        <p>
+        This Python-based automation script manages SSH and COM connections, as well as configuration tasks, across network devices. 
+        It standardizes settings, reduces manual command-line interface operations, and enables repeatable workflows for switches, routers, and servers, 
+        functioning similarly to SCCM Configuration Manager for Windows.
+        </p>
+      </div>
+
+      <!-- Feature cards -->
+      <div class="features">
+        <div class="feature-card">
+          <h3><span class="icon">🔑</span>Multiple Authentication</h3>
+          <p>
+            Use passwords or SSH keys with libraries like <code>paramiko</code> or <code>netmiko</code>,
+            giving you flexible authentication per device or environment.
+          </p>
         </div>
-        
-        <div>
-            <!-- What are switches section -->
-            <div>
-                <h2> What Are Network Switches?</h2>
-                <p>Network switches are fundamental networking devices that operate at the Data Link Layer (Layer 2) of the OSI model. They create a network by connecting multiple devices and enabling communication between them within a local area network (LAN).</p>
-                
-                <div>
-                    <h3>How Switches Work</h3>
-                    <ul>
-                        <li>Learn MAC addresses of connected devices</li>
-                        <li>Build and maintain MAC address tables</li>
-                        <li>Forward frames based on destination MAC addresses</li>
-                        <li>Create separate collision domains for each port</li>
-                        <li>Provide full-duplex communication</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3>Common Switch Uses</h3>
-                    <ul>
-                        <li>Connecting computers, servers, and printers in offices</li>
-                        <li>Creating network segments in data centers</li>
-                        <li>Linking access points in wireless networks</li>
-                        <li>Connecting IoT devices in smart buildings</li>
-                        <li>Building redundant network paths for reliability</li>
-                        <li>Implementing VLANs for network segmentation</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Common misconfigurations section -->
-            <div>
-                <h2> Common Switch Misconfigurations</h2>
-                <p>Even experienced network administrators can fall into these configuration traps. Here are the most frequent mistakes that can compromise network security and performance:</p>
-                
-                <div>
-                    <h4>1. Default Credentials and Settings</h4>
-                    <p>Many switches ship with default usernames/passwords (admin/admin, admin/password) and default configurations that prioritize ease of setup over security.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• Unauthorized access to network infrastructure<br>
-                        • Complete network compromise<br>
-                        • Data theft and industrial espionage<br>
-                        • Compliance violations (GDPR, HIPAA, PCI-DSS)</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4>2. Improper VLAN Configuration</h4>
-                    <p>Misconfigured VLANs can lead to unintended network access, with devices ending up in wrong VLANs or VLAN hopping vulnerabilities being created.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• Cross-network contamination<br>
-                        • Bypassing security policies<br>
-                        • Unauthorized access to sensitive systems<br>
-                        • Network performance degradation</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4>3. Spanning Tree Protocol (STP) Issues</h4>
-                    <p>Disabling STP entirely, misconfiguring bridge priorities, or creating asymmetric STP configurations can lead to serious network problems.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• Broadcast storms causing network outages<br>
-                        • Switch MAC table exhaustion<br>
-                        • Network loops causing total connectivity loss<br>
-                        • Unpredictable network behavior</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4>4. Port Security Neglect</h4>
-                    <p>Failing to implement port security features like MAC address limiting, sticky MAC learning, or violation actions leaves networks vulnerable.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• MAC flooding attacks<br>
-                        • Unauthorized device connections<br>
-                        • Network reconnaissance by attackers<br>
-                        • Switch resources exhaustion</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4>5. Trunk Port Misconfigurations</h4>
-                    <p>Incorrectly configured trunk ports, wrong native VLAN settings, or allowing all VLANs on trunks when not needed creates security vulnerabilities.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• VLAN hopping attacks<br>
-                        • Double-tagging attacks<br>
-                        • Unintended network access<br>
-                        • Traffic interception possibilities</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4>6. Management Interface Exposure</h4>
-                    <p>Leaving management interfaces accessible from production networks, using insecure protocols (Telnet, HTTP), or inadequate access controls.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• Remote network takeover<br>
-                        • Configuration theft and modification<br>
-                        • Credential harvesting<br>
-                        • Persistent network access for attackers</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4>7. Inadequate Monitoring and Logging</h4>
-                    <p>Failing to enable proper logging, SNMP monitoring, or port mirroring for security monitoring leaves networks blind to threats.</p>
-                    <div>
-                        <h5>Negative Consequences:</h5>
-                        <p>• Undetected security breaches<br>
-                        • No forensic capabilities after incidents<br>
-                        • Delayed incident response<br>
-                        • Compliance audit failures</p>
-                    </div>
-                </div>
-            </div>
-                <div class="card">
-                <h2><div class="icon">🤖</div>Automated Switch Configuration</h2>
-                <p>Modern network management increasingly relies on automation to ensure consistent, error-free configurations across multiple switches. Using Python scripts and YAML configuration files provides a reliable, repeatable way to deploy switch configurations.</p>
-                
-                <div class="feature-list">
-                    <h3>Why Automate Switch Configuration?</h3>
-                    <ul>
-                        <li>Eliminates human error in repetitive configuration tasks</li>
-                        <li>Ensures consistency across all switches in the network</li>
-                        <li>Enables version control for network configurations</li>
-                        <li>Speeds up deployment and reduces configuration time</li>
-                        <li>Facilitates disaster recovery and switch replacement</li>
-                        <li>Provides audit trails and documentation</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-list">
-                    <h3>The Automation Workflow</h3>
-                    <ul>
-                        <li><strong>Step 1:</strong> Define switch configurations in YAML files (human-readable format)</li>
-                        <li><strong>Step 2:</strong> Python script reads and validates the YAML configuration</li>
-                        <li><strong>Step 3:</strong> Script connects to switches via SSH</li>
-                        <li><strong>Step 4:</strong> Commands are generated and applied to the switch</li>
-                        <li><strong>Step 5:</strong> Configuration is verified and results are logged</li>
-                    </ul>
-                    
-                <div style="background: #f8f9fa; border-radius: 15px; padding: 20px; margin: 20px 0;">
-                    <h3 style="color: #2c3e50; margin-bottom: 15px;"> Python Configuration Script for Switch 1</h3>
-                    <pre style="background: #2d3748; color: #e2e8f0; padding: 20px; border-radius: 10px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 14px;">import yaml
+
+        <div class="feature-card">
+          <h3><span class="icon">🌐</span>Multi-Host Management</h3>
+          <p>
+            Loop through multiple hosts from a Python list or inventory file, applying the same logic to
+            production, staging, and lab devices with a single script.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3><span class="icon">🚇</span>Consistent Configs</h3>
+          <p>
+            Send standardized configuration commands over SSH to switches, routers, and servers, keeping
+            network behavior predictable and documented in code.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3><span class="icon">⚙️</span>Rapid Deployment</h3>
+          <p>
+            Push updates, patch changes, or new settings to dozens of devices in minutes instead of hours
+            of manual CLI sessions.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3><span class="icon">🤖</span>Automation Friendly</h3>
+          <p>
+            Integrate Python scripts into CI/CD pipelines, cron jobs, or orchestration tools to schedule
+            checks and configuration tasks automatically.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3><span class="icon">🔧</span>Error Reduction</h3>
+          <p>
+            Centralize commands and logic in one script, reducing the chance of mistyped commands or
+            inconsistent setups between devices.
+          </p>
+        </div>
+      </div>
+
+      <!-- Usage section -->
+      <div class="usage-section">
+        <h2>How to Use a Python SSH Automation Script</h2>
+
+        <p><strong>1. Define your device settings:</strong></p>
+        <div class="code-block">
+import netmiko
+
+device = {
+    "device_type": "cisco_ios",
+    "ip": "192.168.1.100",
+    "username": "admin",
+    "password": "your_password",
+    "secret": "enable_password",
+}
+        </div>
+
+        <p><strong>2. Connect and run commands:</strong></p>
+        <div class="code-block">
 from netmiko import ConnectHandler
 
-# Define device details
-cisco_switch = {
-    "device_type": "cisco_ios",
-    "ip": "192.168.1.100",   # Replace with switch management IP
-    "username": "admin",     # Replace with your username
-    "password": "adminpass", # Replace with your password
-    "secret": "StrongPassword123",  # Enable secret
-}
+connection = ConnectHandler(**device)
+connection.enable()
 
-# Configuration commands
-config_commands = [
-    "hostname Switch1",
-    "enable secret StrongPassword123",
-    "banner motd #Unauthorized access is prohibited!#",
+commands = [
+    "hostname AutoSec-SW1",
     "interface vlan 1",
-    " ip address 192.168.1.2 255.255.255.0",
-    " no shutdown",
-    "ip default-gateway 192.168.1.1",
-    "line console 0",
-    " password ciscocon",
-    " login",
-    " logging synchronous",
-    "line vty 0 4",
-    " password ciscovty",
-    " login",
-    " transport input telnet ssh",
-    "interface range FastEthernet0/10 - 24",
-    " shutdown",
-    "end",
-    "write memory",
+    "ip address 192.168.1.5 255.255.255.0",
+    "no shutdown",
 ]
 
-def main():
-    # Connect to device
-    print("Connecting to switch...")
-    connection = ConnectHandler(**cisco_switch)
-    
-    # Enter enable mode
-    connection.enable()
-    
-    # Send configuration commands
-    print("Sending configuration...")
-    output = connection.send_config_set(config_commands)
-    print(output)
-    
-    # Save configuration
-    print("Saving configuration...")
-    save_output = connection.save_config()
-    print(save_output)
-    
-    # Disconnect
-    connection.disconnect()
-    print("Configuration complete and connection closed.")
+output = connection.send_config_set(commands)
+print(output)
 
-if __name__ == "__main__":
-    main()</pre>
-                </div>
-                
-                <div style="background: #f8f9fa; border-radius: 15px; padding: 20px; margin: 20px 0;">
-                    <h3 style="color: #2c3e50; margin-bottom: 15px;"> YAML Configuration File for Switch 1</h3>
-                    <pre style="background: #2d3748; color: #e2e8f0; padding: 20px; border-radius: 10px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 14px;">switches:
-  ---
-- name: Configure Cisco Switch with SSH
-  hosts: switches
-  gather_facts: no
-  connection: network_cli
-
-  tasks:
-    - name: Set hostname
-      cisco.ios.ios_config:
-        lines:
-          - hostname Switch1
-
-    - name: Configure enable secret
-      cisco.ios.ios_config:
-        lines:
-          - enable secret StrongPassword123
-
-    - name: Configure MOTD banner
-      cisco.ios.ios_config:
-        lines:
-          - banner motd #Unauthorized access is prohibited!#
-
-    - name: Create VLANs
-      cisco.ios.ios_config:
-        lines:
-          - vlan 10
-          - name Sales
-          - vlan 20
-          - name HR
-          - vlan 30
-          - name IT
-
-    - name: Configure management VLAN IP
-      cisco.ios.ios_config:
-        lines:
-          - ip address 192.168.1.2 255.255.255.0
-          - no shutdown
-        parents: interface vlan 1
-
-    - name: Configure default gateway
-      cisco.ios.ios_config:
-        lines:
-          - ip default-gateway 192.168.1.1
-
-    - name: Assign VLAN 10 to Fa0/1
-      cisco.ios.ios_config:
-        lines:
-          - switchport mode access
-          - switchport access vlan 10
-        parents: interface FastEthernet0/1
-
-    - name: Assign VLAN 20 to Fa0/2
-      cisco.ios.ios_config:
-        lines:
-          - switchport mode access
-          - switchport access vlan 20
-        parents: interface FastEthernet0/2
-
-    - name: Assign VLAN 30 to Fa0/3
-      cisco.ios.ios_config:
-        lines:
-          - switchport mode access
-          - switchport access vlan 30
-        parents: interface FastEthernet0/3
-
-    - name: Configure console line
-      cisco.ios.ios_config:
-        lines:
-          - password ciscocon
-          - login
-          - logging synchronous
-        parents: line console 0
-
-    - name: Set domain name (required for SSH)
-      cisco.ios.ios_config:
-        lines:
-          - ip domain-name example.local
-
-    - name: Generate RSA keys for SSH
-      cisco.ios.ios_command:
-        commands:
-          - crypto key generate rsa modulus 2048
-
-    - name: Create local user for SSH login
-      cisco.ios.ios_config:
-        lines:
-          - username admin privilege 15 secret AdminPass123
-
-    - name: Configure VTY lines for SSH only
-      cisco.ios.ios_config:
-        lines:
-          - login local
-          - transport input ssh
-        parents: line vty 0 4
-
-    - name: Shutdown unused ports (Fa0/4 - Fa0/24)
-      cisco.ios.ios_config:
-        lines:
-          - shutdown
-        parents: interface range FastEthernet0/4 - 24
-
-    - name: Save configuration
-      cisco.ios.ios_config:
-        save_when: always</pre>
-                </div>
-                
-                    <h3>Critical Reminder</h3>
-                    <p>Network switch misconfigurations can have cascading effects throughout your entire infrastructure. A single misconfigured switch can compromise the security of hundreds or thousands of connected devices. Always test configurations in a lab environment before deploying to production, and maintain comprehensive documentation of all network changes.</p>
-                </div>
-            </div>
+connection.save_config()
+connection.disconnect()
         </div>
-    </div>
+
+        <p><strong>3. Extend to multiple devices:</strong></p>
+        <div class="code-block">
+devices = [device1, device2, device3]
+
+for dev in devices:
+    with ConnectHandler(**dev) as conn:
+        conn.enable()
+        conn.send_config_set(commands)
+        conn.save_config()
+        print(f"Configured {dev['ip']}")
+        </div>
+      </div>
+
+      <!-- Warning -->
+      <div class="warning">
+        <h4>⚠️ Security Notice</h4>
+        <p>
+          Never hard-code real passwords or private keys in your Python scripts. Use environment
+          variables, encrypted vaults, or secret managers. Limit which hosts and users can be
+          targeted by automation, and always test scripts in a lab before running them on
+          production devices.
+        </p>
+      </div>
+
+      <!-- Why Python automation -->
+      <div class="usage-section">
+        <h2>Why Use Python for SSH Automation?</h2>
+        <ul style="list-style-type: none; padding: 0;">
+          <li class="bullet-card">
+            <strong>🔧 Repeatable Commands:</strong>
+            Put your “golden config” into Python lists and functions so you can apply the same
+            changes over and over without retyping.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🌍 Scales Across Environments:</strong>
+            Target dev, test, and prod with different device lists or credentials while using the
+            same core automation logic.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🚇 Deep Access Control:</strong>
+            Use SSH tunnels, jump hosts, and role-based accounts while still controlling everything
+            from a single Python entry point.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🔑 Strong Key Usage:</strong>
+            Encourage key-based authentication instead of passwords and rotate keys with automated
+            routines when needed.
+          </li>
+
+          <li class="bullet-card">
+            <strong>🤖 Integrates Everywhere:</strong>
+            Python scripts can run on laptops, jump boxes, CI pipelines, or management servers,
+            giving you flexible control over where and how automation executes.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Download / CTA -->
+      <div class="download-section">
+        <h2>Ready to Get Started?</h2>
+        <p>
+          Build a simple Python SSH script, test it against a lab switch or router, and then expand
+          it into a reusable tool for your entire AutoSec environment.
+        </p>
+        <!-- Point this href to your actual .py file or repo if you have one -->
+        <a href="#" class="btn">View Sample Python Script</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 AutoSec. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.content-card, .feature-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
