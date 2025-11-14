@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔌 FIU Capstone Switch Configuration Script</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+        padding: 40px 0;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .content {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .intro {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-left: 5px solid #667eea;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 40px;
+      }
+
+      .intro h2 {
+        color: #4a5568;
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+      }
+
+      .intro p {
+        font-size: 1.05rem;
+        color: #555;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 30px;
+        margin: 40px 0;
+      }
+
+      .feature-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .feature-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+
+      .feature-card .icon {
+        font-size: 1.8rem;
+        margin-right: 12px;
+      }
+
+      .usage-section {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        margin: 30px 0;
+      }
+
+      .usage-section h2 {
+        color: #2d3748;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+
+      .usage-section h3 {
+        color: #2d3748;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+      }
+
+      .code-block {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Courier New", monospace;
+        overflow-x: auto;
+        margin: 15px 0;
+        font-size: 0.9rem;
+      }
+
+      .download-section {
+        text-align: center;
+        padding: 40px 0 10px;
+      }
+
+      .download-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .warning {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .warning h4 {
+        color: #856404;
+        margin-bottom: 10px;
+      }
+
+      .warning p {
+        color: #664d03;
+      }
+
+      ul {
+        margin-left: 18px;
+      }
+
+      li {
+        margin: 4px 0;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2.1rem;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>🔌 FIU Capstone Switch Config</h1>
+        <p>
+          Automated Cisco switch configuration using Python and <code>pyserial</code> for fast, consistent
+          VLAN and voice deployments.
+        </p>
+      </div>
+
+      <div class="content">
+        <!-- Intro -->
+        <div class="intro">
+          <h2>How to Use the FIU Capstone Switch Configuration Script</h2>
+          <p>
+            This Python script automatically configures a Cisco switch over the serial console using
+            <code>pyserial</code>. It:
+          </p>
+          <ul style="margin-top: 10px">
+            <li>Detects the correct COM/USB serial port</li>
+            <li>Logs into the switch console</li>
+            <li>Implements VLAN, voice, Quality of Service (QoS), and port configurations</li>
+            <li>Configures the hostname, management IP address, and message of the day (MOTD) banner</li>
+            <li>Saves the running configuration</li>
+          </ul>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="features">
+          <div class="feature-card">
+            <h3><span class="icon">🧷</span>Auto COM Port Detection</h3>
+            <p>
+              Automatically locates the correct USB/serial COM port using
+              <code>serial.tools.list_ports</code>, so you don’t have to guess device names like
+              <code>COM3</code> or <code>/dev/ttyUSB0</code>.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3><span class="icon">📦</span>End-to-End Switch Setup</h3>
+            <p>
+              From hostname and management IP to VLANs, QoS, and port roles, the script configures
+              a full lab-ready network layout in one run.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3><span class="icon">🎛️</span>Voice &amp; QoS Ready</h3>
+            <p>
+              Voice ports are assigned to VLAN 10 with QoS trust, ensuring proper traffic handling
+              for VoIP phones and latency-sensitive traffic.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3><span class="icon">🔁</span>Idempotent &amp; Repeatable</h3>
+            <p>
+              Run the script on lab switches to quickly reset or standardize configurations, ideal
+              for demos, classes, and capstone showcases.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3><span class="icon">🛡️</span>Secure-by-Default</h3>
+            <p>
+              Applies console and VTY protections, encrypted secrets, and login configuration so
+              the device isn’t left in a default or open state.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3><span class="icon">📊</span>Predictable Network Layout</h3>
+            <p>
+              Ports are consistently mapped to VOICE, USERS, SERVERS, and DEV_TEST VLANs, with a
+              trunk to your UniFi router and an unused port shut down.
+            </p>
+          </div>
+        </div>
+
+        <!-- Prerequisites & Script Overview -->
+        <div class="usage-section">
+          <h2>1. Prerequisites and Requirements</h2>
+
+          <h3>1.1 Hardware</h3>
+          <ul>
+            <li>Cisco switch (e.g., Catalyst 2950)</li>
+            <li>USB-to-serial adapter (or native serial port)</li>
+            <li>Console cable connected from your PC to the switch’s console port</li>
+            <li>
+              Switch powered on and showing a CLI prompt (e.g., <code>Switch&gt;</code> or
+              <code>Switch#</code>)
+            </li>
+          </ul>
+
+          <h3>1.2 Software</h3>
+          <ul>
+            <li>Python 3.x installed</li>
+            <li><code>pyserial</code> library installed</li>
+          </ul>
+
+          <p><strong>Install the pyserial library:</strong></p>
+          <div class="code-block">pip install pyserial</div>
+        </div>
+
+        <div class="usage-section">
+          <h2>2. Overview of the Script</h2>
+          <p>The script uses these key modules:</p>
+          <div class="code-block">
+            import serial<br />
+            import serial.tools.list_ports<br />
+            import time<br />
+            import re
+          </div>
+
+          <ul>
+            <li>
+              <strong><code>serial</code> &amp; <code>serial.tools.list_ports</code>:</strong>
+              Communicate with the switch over the COM port and automatically detect the appropriate port.
+            </li>
+            <li>
+              <strong><code>time</code>:</strong> Adds small delays so the switch has time to respond.
+            </li>
+            <li>
+              <strong><code>re</code>:</strong> Identifies prompts such as <code>[confirm]</code> or copy
+              confirmation messages in the switch output.
+            </li>
+          </ul>
+
+          <h3>Core Functions</h3>
+          <p><strong>1. <code>detect_com_port()</code></strong></p>
+          <p>Identifies the first serial port that matches a USB or serial adapter and prints:</p>
+          <div class="code-block">[✓] Using detected port: COM3</div>
+
+          <p><strong>2. <code>send_and_confirm(ser, cmd, delay=0.4)</code></strong></p>
+          <p>Transmits a command, waits for a response, and then:</p>
+          <ul>
+            <li>Automatically answers <code>[confirm]</code> prompts</li>
+            <li>Confirms <code>Destination filename</code> for <code>copy run start</code></li>
+            <li>Prints which command is being sent</li>
+          </ul>
+
+          <p><strong>3. <code>configure_switch(port)</code></strong></p>
+          <p>Connects to the switch on the specified port and runs all configuration commands:</p>
+          <ul>
+            <li>Basic security (passwords, local admin user)</li>
+            <li>Console and VTY protection</li>
+            <li>Default gateway and management VLAN SVI</li>
+            <li>Creation of VLANs 10/20/30/40 and port assignments</li>
+            <li>Voice VLAN and QoS configuration</li>
+            <li>Trunk uplink to the UniFi router</li>
+            <li>Shutting down unused port <code>Fa0/48</code></li>
+            <li>MOTD banner configuration</li>
+            <li>Saving the configuration</li>
+          </ul>
+
+          <p><strong>4. <code>main()</code></strong></p>
+          <ul>
+            <li>Detects the COM port</li>
+            <li>Calls <code>configure_switch(port)</code></li>
+            <li>Handles errors and waits for Enter before closing</li>
+          </ul>
+        </div>
+
+        <!-- Network Design -->
+        <div class="usage-section">
+          <h2>3. Network Design Configured by the Script</h2>
+
+          <h3>3.1 Hostname &amp; Management</h3>
+          <ul>
+            <li><strong>Hostname:</strong> <code>SW1</code></li>
+          </ul>
+          <p><strong>Management Interface (VLAN 1):</strong></p>
+          <ul>
+            <li>VLAN: <code>VLAN 1</code></li>
+            <li>IP: <code>192.168.1.5</code></li>
+            <li>Mask: <code>255.255.255.0</code></li>
+            <li>Default gateway: <code>192.168.1.1</code></li>
+          </ul>
+
+          <h3>3.2 VLANs</h3>
+          <ul>
+            <li><strong>VLAN 10</strong> – <code>VOICE</code></li>
+            <li><strong>VLAN 20</strong> – <code>USERS</code></li>
+            <li><strong>VLAN 30</strong> – <code>SERVERS</code></li>
+            <li><strong>VLAN 40</strong> – <code>DEV_TEST</code></li>
+          </ul>
+
+          <h3>3.3 Port Assignments</h3>
+          <ul>
+            <li><code>Fa0/1–16</code> → VLAN 10 (VOICE) + voice VLAN + QoS trust</li>
+            <li><code>Fa0/17–30</code> → VLAN 20 (USERS)</li>
+            <li><code>Fa0/31–38</code> → VLAN 30 (SERVERS)</li>
+            <li><code>Fa0/39–46</code> → VLAN 40 (DEV_TEST)</li>
+            <li><code>Fa0/47</code> → Trunk to UniFi router (VLANs 1,10,20,30,40)</li>
+            <li><code>Fa0/48</code> → Disabled (<code>UNUSED_PORT</code>)</li>
+          </ul>
+
+          <h3>3.4 Credentials (Demo Values)</h3>
+          <ul>
+            <li><strong>enable secret:</strong> <code>123456789</code></li>
+            <li>
+              <strong>Local admin user:</strong>
+              <code>username admin privilege 15 secret 123456789</code>
+            </li>
+            <li><strong>Console password:</strong> <code>123456789</code></li>
+            <li><strong>VTY password:</strong> <code>123456789</code></li>
+          </ul>
+        </div>
+
+        <!-- Warning -->
+        <div class="warning">
+          <h4>⚠️ Security Notice</h4>
+          <p>
+            These credentials are for lab and demonstration only. Always change usernames, passwords,
+            and secrets before using this script in any real environment. Never store real credentials
+            in public repositories.
+          </p>
+        </div>
+
+        <!-- Execution Instructions -->
+        <div class="usage-section">
+          <h2>4. Script Execution Instructions</h2>
+
+          <h3>4.1 Establish All Required Connections</h3>
+          <ul>
+            <li>Plug in the switch and power it on.</li>
+            <li>Connect the USB-to-serial adapter to your PC.</li>
+            <li>Connect the console cable from the adapter to the switch console port.</li>
+          </ul>
+
+          <h3>4.2 Verify Python &amp; pyserial</h3>
+          <div class="code-block">
+            python --version<br />
+            pip show pyserial
+          </div>
+
+          <h3>4.3 Save the Script</h3>
+          <p>Save your Python code as:</p>
+          <div class="code-block">configure_switch.py</div>
+
+          <h3>4.4 Run from Terminal / Command Prompt</h3>
+          <p><strong>On Windows:</strong></p>
+          <div class="code-block">python configure_switch.py</div>
+
+          <p><strong>On macOS / Linux (if <code>python</code> is Python 2):</strong></p>
+          <div class="code-block">python3 configure_switch.py</div>
+
+          <h3>4.5 Monitor Script Output</h3>
+          <p>You should see output similar to:</p>
+          <div class="code-block">
+            [✓] Using detected port: COM3<br /><br />
+            [*] Starting FIU Capstone VLAN + Voice configuration...<br /><br />
+            → enable<br />
+            → configure terminal<br />
+            ...<br />
+             &nbsp;&nbsp;↳ Confirmed [confirm] for: delete flash:vlan.dat<br />
+             &nbsp;&nbsp;↳ Confirmed copy destination filename<br />
+            ...<br />
+            [✓] Configuration completed successfully.<br /><br />
+            Network Summary:<br />
+             • VLAN 10 - Voice (Fa0/1–16)<br />
+             • VLAN 20 - Users (Fa0/17–30)<br />
+             • VLAN 30 - Servers (Fa0/31–38)<br />
+             • VLAN 40 - Dev-Test (Fa0/39–46)<br />
+             • Trunk Port Fa0/47 → UniFi Router<br />
+             • Admin Username: admin / Password: 123456789<br />
+             • Management IP: 192.168.1.5 / Gateway: 192.168.1.1
+          </div>
+
+          <h3>4.6 Optional: Verify on the Switch</h3>
+          <p>Connect with PuTTY, Tera Term, or another terminal and run:</p>
+          <div class="code-block">
+            show vlan brief<br />
+            show ip interface brief<br />
+            show running-config
+          </div>
+        </div>
+
+        <!-- Customization -->
+        <div class="usage-section">
+          <h2>5. Script Customization</h2>
+          <p>Edit the <code>commands</code> list inside <code>configure_switch()</code> to adapt the
+            configuration.</p>
+
+          <h3>5.1 Change Hostname</h3>
+          <div class="code-block">"hostname SW1",</div>
+
+          <h3>5.2 Change Management IP / Gateway</h3>
+          <div class="code-block">
+            "ip default-gateway 192.168.1.1",<br />
+            "interface vlan1",<br />
+            "ip address 192.168.1.5 255.255.255.0",
+          </div>
+
+          <h3>5.3 Change VLANs or Port Ranges</h3>
+          <p>Adjust VLAN IDs, names, or interface ranges as needed:</p>
+          <div class="code-block">
+            "vlan 20", "name USERS", "exit",<br />
+            "interface range fa0/17 - 30",<br />
+            "switchport access vlan 20",
+          </div>
+
+          <h3>5.4 Change Trunk Port or Allowed VLANs</h3>
+          <div class="code-block">
+            "interface fa0/47",<br />
+            "switchport trunk allowed vlan 1,10,20,30,40",
+          </div>
+
+          <p>After modifying any commands, re-run the script to push the updated configuration.</p>
+        </div>
+
+        <!-- Error Handling -->
+        <div class="usage-section">
+          <h2>6. Error Handling Procedures</h2>
+          <p>The main execution block looks like this:</p>
+          <div class="code-block">
+            if __name__ == "__main__":<br />
+            &nbsp;&nbsp;try:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;main()<br />
+            &nbsp;&nbsp;except Exception as e:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;print(f"[ERROR] {e}")<br />
+            &nbsp;&nbsp;input("\nPress Enter to exit...")
+          </div>
+
+          <ul>
+            <li>Handles missing serial ports, permission issues, or non-responsive devices.</li>
+            <li>Prints a clear <code>[ERROR]</code> message instead of closing silently.</li>
+            <li>Waits for keyboard input so you can read the error before the window closes.</li>
+          </ul>
+        </div>
+
+        <!-- Why Automate -->
+        <div class="usage-section">
+          <h2>Why Automate Switch Configuration?</h2>
+          <ul style="list-style-type: none; padding: 0">
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              "
+            >
+              <strong>⚡ Speed &amp; Repeatability:</strong> Configure lab switches in seconds instead
+              of clicking through the CLI one line at a time.
+            </li>
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              "
+            >
+              <strong>🧩 Consistent Design:</strong> Every device gets the same VLANs, QoS, and port
+              layout—no “snowflake” configs.
+            </li>
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              "
+            >
+              <strong>📚 Great for Teaching &amp; Demos:</strong> Perfect for capstone presentations,
+              classroom labs, or repeatable POCs.
+            </li>
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              "
+            >
+              <strong>🔒 Fewer Manual Mistakes:</strong> Typed CLI errors are common; scripted
+              commands are not.
+            </li>
+          </ul>
+        </div>
+
+        <!-- CTA -->
+        <div class="download-section">
+          <h2 style="margin-bottom: 20px; color: #2d3748">
+            Ready to Run the Script?
+          </h2>
+          <p style="margin-bottom: 30px; color: #666; font-size: 1.05rem">
+            Save your Python file, connect your console cable, and execute the script to deploy a
+            clean, structured FIU Capstone switch configuration.
+          </p>
+          <!-- Optional button if you host the script somewhere -->
+          <!-- <a href="configure_switch.py" class="download-btn">Download Script</a> -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Card fade-in animation (matching the style you provided)
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".feature-card");
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        });
+
+        cards.forEach((card) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px)";
+          card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(card);
+        });
+      });
+    </script>
+  </body>
+</html>
