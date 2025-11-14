@@ -1,198 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIU AutoSec - Network Switches Configuration Guide</title>
-  <style>
-    :root {
-      --fiu-blue: #081E3F;
-      --fiu-gold: #B6862C;
-      --fiu-light-blue: #1B4B8C;
-      --fiu-light-gold: #D4A556;
-      --white: #FFFFFF;
-      --light-gray: #F5F7FA;
-      --dark-gray: #2D3748;
-      --text-gray: #4A5568;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Network Switches: Configuration Guide & Common Pitfalls</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🔌 Network Switches: Configuration Guide</h1>
+      <p>Understanding switches, avoiding common pitfalls, and preventing network disasters.</p>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="switch1.html">Switch 1</a></li>
+          <li><a href="router.html">Router</a></li>
+          <li><a href="switch2.html">Switch 2</a></li>
+          <li><a href="yaml.html">Python Scripts</a></li>
+        </ul>
+      </nav>
+    </header>
 
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: var(--text-gray);
-      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
-      min-height: 100vh;
-    }
+    <!-- What Are Switches -->
+    <section class="content-card">
+      <div class="intro-section">
+        <h2>What Are Network Switches?</h2>
+        <p>
+          Network switches are fundamental networking devices that operate at the Data Link Layer (Layer 2) of the OSI model.
+          They create a network by connecting multiple devices and enabling communication between them within a local area network (LAN).
+        </p>
+      </div>
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+      <div class="features-grid">
+        <div class="info-box">
+          <h3>How Switches Work</h3>
+          <ul>
+            <li>Learn MAC addresses of connected devices.</li>
+            <li>Build and maintain MAC address tables.</li>
+            <li>Forward frames based on destination MAC addresses.</li>
+            <li>Create separate collision domains for each port.</li>
+            <li>Provide full-duplex communication.</li>
+          </ul>
+        </div>
 
-    /* Header */
-    header {
-      text-align: center;
-      color: var(--white);
-      padding: 60px 20px 40px;
-      margin-bottom: 30px;
-    }
+        <div class="info-box">
+          <h3>Common Switch Uses</h3>
+          <ul>
+            <li>Connecting computers, servers, and printers in offices.</li>
+            <li>Creating network segments in data centers.</li>
+            <li>Linking access points in wireless networks.</li>
+            <li>Connecting IoT devices in smart buildings.</li>
+            <li>Building redundant network paths for reliability.</li>
+            <li>Implementing VLANs for network segmentation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    header h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin-bottom: 15px;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-    }
+    <!-- Misconfigurations -->
+    <section class="content-card">
+      <h2 class="section-title">Common Switch Misconfigurations</h2>
+      <p class="section-subtitle">
+        Even experienced network administrators can fall into these traps. Each mistake can compromise both security and performance.
+      </p>
 
-    header p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      opacity: 0.95;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+      <div class="info-box">
+        <h3>1. Default Credentials and Settings</h3>
+        <p>
+          Many switches ship with default usernames/passwords (e.g., <code>admin/admin</code>) and configurations that prioritize
+          ease of setup over security.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • Unauthorized access to network infrastructure<br>
+            • Complete network compromise<br>
+            • Data theft and industrial espionage<br>
+            • Compliance violations (GDPR, HIPAA, PCI-DSS)
+          </p>
+        </div>
+      </div>
 
-    nav {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin: 28px auto 0;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
+      <div class="info-box">
+        <h3>2. Improper VLAN Configuration</h3>
+        <p>
+          Misconfigured VLANs can lead to unintended network access, with devices ending up in the wrong VLANs or VLAN-hopping risks.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • Cross-network contamination<br>
+            • Bypassing security policies<br>
+            • Unauthorized access to sensitive systems<br>
+            • Network performance degradation
+          </p>
+        </div>
+      </div>
 
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      list-style: none;
-    }
+      <div class="info-box">
+        <h3>3. Spanning Tree Protocol (STP) Issues</h3>
+        <p>
+          Disabling STP, misconfiguring bridge priorities, or asymmetric STP designs can destabilize the entire switching fabric.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • Broadcast storms causing network outages<br>
+            • Switch MAC table exhaustion<br>
+            • Network loops causing total connectivity loss<br>
+            • Unpredictable network behavior
+          </p>
+        </div>
+      </div>
 
-    .nav-links a {
-      display: inline-block;
-      padding: 10px 22px;
-      background: linear-gradient(135deg, var(--fiu-blue) 0%, var(--fiu-light-blue) 100%);
-      color: var(--white);
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(8, 30, 63, 0.3);
-      font-size: 0.98rem;
-    }
+      <div class="info-box">
+        <h3>4. Port Security Neglect</h3>
+        <p>
+          Ignoring features like MAC limiting, sticky MAC, or violation actions leaves the access layer exposed.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • MAC flooding attacks<br>
+            • Unauthorized device connections<br>
+            • Network reconnaissance by attackers<br>
+            • Switch resource exhaustion
+          </p>
+        </div>
+      </div>
 
-    .nav-links a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(8, 30, 63, 0.5);
-      background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
-    }
+      <div class="info-box">
+        <h3>5. Trunk Port Misconfigurations</h3>
+        <p>
+          Incorrect trunking, wrong native VLANs, or allowing all VLANs when not needed introduces stealthy attack vectors.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • VLAN hopping attacks<br>
+            • Double-tagging attacks<br>
+            • Unintended network access<br>
+            • Traffic interception possibilities
+          </p>
+        </div>
+      </div>
 
-    /* Generic card */
-    .content-card {
-      background: var(--white);
-      border-radius: 15px;
-      padding: 32px;
-      margin-bottom: 30px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      opacity: 0; /* animated */
-    }
+      <div class="info-box">
+        <h3>6. Management Interface Exposure</h3>
+        <p>
+          Leaving management interfaces reachable from production networks, using Telnet/HTTP, or weak access controls is dangerous.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • Remote network takeover<br>
+            • Configuration theft and modification<br>
+            • Credential harvesting<br>
+            • Persistent access for attackers
+          </p>
+        </div>
+      </div>
 
-    @media (min-width: 768px) {
-      .content-card {
-        padding: 40px;
-      }
-    }
+      <div class="info-box">
+        <h3>7. Inadequate Monitoring and Logging</h3>
+        <p>
+          Without proper logging, SNMP monitoring, or port mirroring, you fly blind when incidents occur.
+        </p>
+        <div class="warning">
+          <h4>Negative Consequences</h4>
+          <p>
+            • Undetected security breaches<br>
+            • No forensic capabilities after incidents<br>
+            • Delayed incident response<br>
+            • Compliance audit failures
+          </p>
+        </div>
+      </div>
+    </section>
 
-    .section-title {
-      color: var(--fiu-blue);
-      margin-bottom: 20px;
-      font-size: 1.9rem;
-    }
+    <!-- Automation -->
+    <section class="content-card">
+      <h2 class="section-title">Automated Switch Configuration</h2>
+      <p class="section-subtitle">
+        Modern network management increasingly relies on automation to ensure consistent, error-free configurations across multiple switches.
+        Python-based automation provides a reliable, repeatable way to deploy switch configurations.
+      </p>
 
-    .section-subtitle {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-      color: var(--dark-gray);
-    }
+      <div class="features-grid">
+        <div class="info-box">
+          <h3>Why Automate Switch Configuration?</h3>
+          <ul>
+            <li>Eliminates human error in repetitive configuration tasks.</li>
+            <li>Ensures consistency across all switches in the network.</li>
+            <li>Enables version control for network configurations.</li>
+            <li>Speeds up deployment and reduces configuration time.</li>
+            <li>Facilitates disaster recovery and switch replacement.</li>
+            <li>Provides audit trails and documentation.</li>
+          </ul>
+        </div>
 
-    /* Intro block */
-    .intro-section {
-      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
-      border-left: 5px solid var(--fiu-gold);
-      padding: 24px;
-      border-radius: 12px;
-      margin-bottom: 28px;
-    }
+        <div class="info-box">
+          <h3>Automation Workflow (Python + SSH)</h3>
+          <ul>
+            <li><strong>Step 1:</strong> Define device details and commands in a Python script.</li>
+            <li><strong>Step 2:</strong> Validate inputs (IP, credentials, command sets).</li>
+            <li><strong>Step 3:</strong> Script connects to switches via SSH using a library like <code>netmiko</code>.</li>
+            <li><strong>Step 4:</strong> Commands are sent and applied to the switch.</li>
+            <li><strong>Step 5:</strong> Output is captured, verified, and logged.</li>
+          </ul>
+        </div>
+      </div>
 
-    .intro-section h2 {
-      color: var(--fiu-blue);
-      margin-bottom: 10px;
-      font-size: 1.7rem;
-    }
+      <!-- Python Script Example 1 -->
+      <div class="code-section">
+        <h3>Python Configuration Script for Switch 1</h3>
+        <div class="code-block">from netmiko import ConnectHandler
 
-    .intro-section p {
-      font-size: 1.02rem;
-      color: var(--text-gray);
-    }
+# Define device details
+cisco_switch = {
+    "device_type": "cisco_ios",
+    "ip": "192.168.1.100",   # Replace with switch management IP
+    "username": "admin",     # Replace with your username
+    "password": "adminpass", # Replace with your password
+    "secret": "StrongPassword123",  # Enable secret
+}
 
-    /* Columns / lists */
-    .two-column {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 20px;
-    }
+# Configuration commands
+config_commands = [
+    "hostname Switch1",
+    "enable secret StrongPassword123",
+    "banner motd #Unauthorized access is prohibited!#",
+    "interface vlan 1",
+    " ip address 192.168.1.2 255.255.255.0",
+    " no shutdown",
+    "ip default-gateway 192.168.1.1",
+    "line console 0",
+    " password ciscocon",
+    " login",
+    " logging synchronous",
+    "line vty 0 4",
+    " password ciscovty",
+    " login",
+    " transport input ssh",
+    "interface range FastEthernet0/10 - 24",
+    " shutdown",
+]
 
-    ul {
-      margin-left: 22px;
-      margin-top: 8px;
-    }
+def main():
+    print("Connecting to switch...")
+    connection = ConnectHandler(**cisco_switch)
 
-    li {
-      margin: 6px 0;
-      line-height: 1.7;
-    }
+    connection.enable()
 
-    /* Info boxes for pitfalls */
-    .info-box {
-      background: #FDFDFE;
-      border-left: 5px solid var(--fiu-blue);
-      padding: 18px 20px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-      opacity: 0; /* animated */
-    }
+    print("Sending configuration...")
+    output = connection.send_config_set(config_commands)
+    print(output)
 
-    .info-box h4 {
-      color: var(--fiu-blue);
-      margin-bottom: 6px;
-      font-size: 1.15rem;
-    }
+    print("Saving configuration...")
+    connection.save_config()
 
-    .info-box h5 {
-      margin-top: 10px;
-      margin-bottom: 4px;
-      color: var(--dark-gray);
-      font-size: 0.98rem;
-    }
+    connection.disconnect()
+    print("Configuration complete and connection closed.")
 
-    .info-box p {
-      margin: 4px 0;
-      font-size: 0.96rem;
-    }
+if __name__ == "__main__":
+    main()</div>
+      </div>
 
-    /* Automation card */
-    .automation-card {
-      background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
-      border-radius: 15px;
-      padding: 24px;
-      margin-top: 10px;
-    }
+      <!-- Python Script Example 2 (no YAML) -->
+      <div class="code-section">
+        <h3>Scaling to Multiple Switches with Python</h3>
+        <p>
+          This example shows how to reuse the same configuration logic for multiple switches while logging results.
+        </p>
+        <div class="code-block">from netmiko import ConnectHandler
 
-    .automation-card h2 {
-      display: flex;
+devices = [
+    {
+        "device_type": "cisco_ios",
+        "ip": "192.168.1.101",
+        "username": "admin",
+        "password": "adminpass",
+        "secret": "StrongPassword123",
+    },
+    {
+        "device_type": "cisco_ios",
+        "ip": "192.168.1.102",
+        "username": "admin",
+        "password": "adminpass",
+        "secret": "StrongPassword123",
+    },
+]
+
+base_commands = [
+    "service password-encryption",
+    "no ip http server",
+    "no ip http secure-server",
+]
+
+for device in devices:
+    print(f"\n--- Connecting to {device['ip']} ---")
+    try:
+        with ConnectHandler(**device) as conn:
+            conn.enable()
+            output = conn.send_config_set(base_commands)
+            print(output)
+            conn.save_config()
+            print(f"Configuration saved on {device['ip']}")
+    except Exception as e:
+        print(f"Error configuring {device['ip']}: {e}")</div>
+      </div>
+
+      <div class="info-box">
+        <h3>Critical Reminder</h3>
+        <p>
+          Network switch misconfigurations can have cascading effects throughout your entire infrastructure.
+          A single misconfigured switch can compromise the security of hundreds or thousands of connected devices.
+          Always test configurations in a lab environment before deploying to production, and maintain
+          comprehensive documentation of all network changes.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 AutoSec. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.content-card, .info-box').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
