@@ -1,133 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoSec - Network Switches</title>
+  <title>AutoSec – Network Switches</title>
   <link rel="stylesheet" href="stylesheet.css" />
 </head>
-
 <body>
   <div class="container">
-
-    <!-- Header -->
+    <!-- Global Header / Brand -->
     <header>
-      <h1>🖧 AutoSec — Network Switches</h1>
-      <p>Understanding switches, avoiding common pitfalls, and preventing network failures.</p>
+      <h1>🔐 AutoSec</h1>
+      <p>
+        Implement automation processes that eliminate reliance on manual operations and minimize
+        the risk of human error. A centralized resource for secure network configuration education,
+        emphasizing standardization, repeatability, and resilience.
+      </p>
 
+      <!-- Global Navigation (same as index) -->
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="About.html">About</a></li>
           <li><a href="switch1.html">Switch 1</a></li>
           <li><a href="router.html">Router</a></li>
-          <li><a href="switch2.html">Failover Switch</a></li>
-          <li><a href="python.html">Python Scripts</a></li>
+          <li><a href="switch2.html">Fail Over Swith</a></li>
+          <li><a href="usage.html">Usage</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- Section: What Are Switches -->
+    <!-- Main card: Network Switches overview -->
     <section class="content-card">
       <div class="intro-section">
-        <h2>What Are Network Switches?</h2>
+        <h2>Network Switches: Configuration Guide</h2>
         <p>
-          Network switches operate at <strong>Layer 2</strong> of the OSI model and connect devices inside a LAN.
-          They forward traffic intelligently using MAC address tables and segment broadcast domains for efficiency.
+          Network switches are the core of a local area network. This page explains how they work,
+          where they’re used, and the most common configuration mistakes that impact security and
+          performance.
         </p>
       </div>
+
+      <h3 class="section-subtitle">What Are Network Switches?</h3>
+      <p>
+        Network switches operate at <strong>Layer 2</strong> of the OSI model and connect devices
+        inside a LAN. They forward frames based on MAC addresses and create separate
+        collision domains per port, improving efficiency and performance.
+      </p>
 
       <h3 class="section-subtitle">How Switches Work</h3>
       <ul>
         <li>Learn MAC addresses of connected devices</li>
         <li>Maintain a MAC address forwarding table</li>
         <li>Forward frames based on destination MAC</li>
-        <li>Provide full-duplex communication</li>
-        <li>Reduce collisions using per-port communication domains</li>
+        <li>Provide full-duplex communication on each port</li>
+        <li>Reduce collisions through per-port isolation</li>
       </ul>
 
       <h3 class="section-subtitle">Common Uses</h3>
       <ul>
-        <li>Office networks connecting PCs, printers, VoIP phones</li>
-        <li>Data center segmentation for role-based workloads</li>
-        <li>Layer-2 topologies for wireless access points</li>
-        <li>IoT integration for smart infrastructure</li>
-        <li>Redundant topologies and VLAN segmentation</li>
+        <li>Connecting PCs, printers, VoIP phones in offices</li>
+        <li>Segmenting workloads in data centers</li>
+        <li>Providing wired backhaul for wireless access points</li>
+        <li>Connecting IoT devices in smart buildings</li>
+        <li>Implementing VLANs and redundant network paths</li>
       </ul>
     </section>
 
-    <!-- Section: Misconfigurations -->
+    <!-- Misconfigurations card -->
     <section class="content-card">
       <h2 class="section-title">🚨 Common Switch Misconfigurations</h2>
-      <p>
-        Even experienced administrators make mistakes. Misconfigurations lead to outages, security breaches,
-        and unpredictable performance.
+      <p class="section-subtitle">
+        Misconfigurations are a major cause of outages and security incidents. Below are the most
+        frequent problems seen in real networks.
       </p>
 
-      <!-- Misconfiguration Items -->
       <div class="info-box">
-        <h3>1. Default Credentials & Access</h3>
-        <p><strong>Example:</strong> admin/admin or no password at all.</p>
+        <h3>1. Default Credentials &amp; Settings</h3>
+        <p><strong>Example:</strong> leaving <code>admin/admin</code> or no password configured.</p>
       </div>
       <ul>
-        <li>Unauthorized remote access</li>
-        <li>Full compromise of the LAN</li>
-        <li>Compliance violations (HIPAA, PCI, GDPR)</li>
+        <li>Unauthorized access to network infrastructure</li>
+        <li>Full network compromise from a single device</li>
+        <li>Compliance violations (PCI-DSS, HIPAA, GDPR)</li>
       </ul>
 
-      <br />
-
       <div class="info-box">
-        <h3>2. Bad VLAN Configuration</h3>
-        <p>Inconsistent VLANs lead to traffic leakage and policy bypassing.</p>
+        <h3>2. Improper VLAN Configuration</h3>
+        <p>Incorrect VLAN assignments or trunk settings that don’t match the design.</p>
       </div>
       <ul>
-        <li>Cross-department access</li>
-        <li>VLAN hopping attacks</li>
-        <li>Unintended shared access</li>
+        <li>Unintended cross-department access</li>
+        <li>Bypassing segmentation and security policies</li>
+        <li>Traffic leakage between isolated environments</li>
       </ul>
 
-      <br />
-
       <div class="info-box">
-        <h3>3. Spanning Tree Misconfiguration</h3>
-        <p>Turning off or misconfiguring STP creates broadcast loops.</p>
+        <h3>3. Spanning Tree Protocol (STP) Issues</h3>
+        <p>Disabling STP or mis-tuning priorities across switches.</p>
       </div>
       <ul>
-        <li>Total LAN outage</li>
-        <li>Storms crippling traffic</li>
+        <li>Broadcast storms and MAC-table instability</li>
+        <li>Total LAN outages caused by loops</li>
       </ul>
 
-      <br />
-
       <div class="info-box">
-        <h3>4. No Port Security</h3>
-        <p>No MAC limiting, violation control, or sticky MAC usage.</p>
+        <h3>4. Port Security Neglect</h3>
+        <p>No MAC limiting, sticky MAC, or violation actions.</p>
       </div>
       <ul>
-        <li>Unauthorized device plug-ins</li>
-        <li>MAC spoofing attacks</li>
-        <li>IoT or rogue device infiltration</li>
+        <li>Unauthorized devices joining the network</li>
+        <li>MAC spoofing and ARP-based attacks</li>
+        <li>Rogue or compromised IoT devices staying hidden</li>
       </ul>
 
-      <br />
-
       <div class="info-box">
-        <h3>5. Misconfigured Trunks</h3>
-        <p>Allowing all VLANs or incorrect native VLAN settings.</p>
+        <h3>5. Trunk Port Misconfigurations</h3>
+        <p>Allowing all VLANs on trunks or using an incorrect native VLAN.</p>
       </div>
       <ul>
-        <li>Traffic leakage</li>
-        <li>Unauthorized VLAN access</li>
+        <li>VLAN hopping and double-tagging attacks</li>
+        <li>Traffic from restricted VLANs appearing on other links</li>
       </ul>
 
       <div class="warning">
-        <h4>⚠️ Why it Matters</h4>
+        <h4>⚠️ Why This Matters</h4>
         <p>
-          A single incorrectly configured switch can shut down a hospital, school,
-          or entire enterprise. Proper configuration prevents operational downtime
-          and protects the network from attacks.
+          A single badly configured switch can bring down a building or campus network.
+          Standardized templates and Python-driven automation (like AutoSec) help prevent
+          these errors and keep configurations consistent.
         </p>
       </div>
     </section>
@@ -136,8 +137,6 @@
     <footer>
       <p>&copy; 2025 AutoSec · FIU Network Automation Capstone</p>
     </footer>
-
   </div>
 </body>
-
 </html>
