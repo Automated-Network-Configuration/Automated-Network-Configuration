@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AutoSec - Network Switches</title>
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="stylesheet.css" />
 </head>
 
 <body>
@@ -12,27 +13,27 @@
 
     <!-- Header -->
     <header>
-      <h1>🖧 AutoSec – Network Switches</h1>
+      <h1>🖧 AutoSec — Network Switches</h1>
       <p>Understanding switches, avoiding common pitfalls, and preventing network failures.</p>
 
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="About.html">About</a></li>
-          <li><a href="Switch 1.html">Switch 1</a></li>
+          <li><a href="switch1.html">Switch 1</a></li>
           <li><a href="router.html">Router</a></li>
-          <li><a href="Switch 2.html">Fail Over Swith</a></li>
-          <li><a href="usage.html">Usage</a></li>
+          <li><a href="switch2.html">Failover Switch</a></li>
+          <li><a href="python.html">Python Scripts</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- What Are Switches -->
+    <!-- Section: What Are Switches -->
     <section class="content-card">
       <div class="intro-section">
         <h2>What Are Network Switches?</h2>
         <p>
-          Network switches operate at <strong>Layer 2</strong> of the OSI Model and connect devices inside a LAN.
+          Network switches operate at <strong>Layer 2</strong> of the OSI model and connect devices inside a LAN.
           They forward traffic intelligently using MAC address tables and segment broadcast domains for efficiency.
         </p>
       </div>
@@ -43,7 +44,7 @@
         <li>Maintain a MAC address forwarding table</li>
         <li>Forward frames based on destination MAC</li>
         <li>Provide full-duplex communication</li>
-        <li>Reduce collisions through separate per-port domains</li>
+        <li>Reduce collisions using per-port communication domains</li>
       </ul>
 
       <h3 class="section-subtitle">Common Uses</h3>
@@ -52,11 +53,11 @@
         <li>Data center segmentation for role-based workloads</li>
         <li>Layer-2 topologies for wireless access points</li>
         <li>IoT integration for smart infrastructure</li>
-        <li>Redundant paths and VLAN segmentation</li>
+        <li>Redundant topologies and VLAN segmentation</li>
       </ul>
     </section>
 
-    <!-- Misconfigurations -->
+    <!-- Section: Misconfigurations -->
     <section class="content-card">
       <h2 class="section-title">🚨 Common Switch Misconfigurations</h2>
       <p>
@@ -64,78 +65,71 @@
         and unpredictable performance.
       </p>
 
+      <!-- Misconfiguration Items -->
       <div class="info-box">
-        <h3>1. Default Credentials & Settings</h3>
+        <h3>1. Default Credentials & Access</h3>
         <p><strong>Example:</strong> admin/admin or no password at all.</p>
       </div>
-
       <ul>
-        <li>Unauthorized access</li>
-        <li>Full network compromise</li>
-        <li>Compliance violations (PCI-DSS, HIPAA, GDPR)</li>
+        <li>Unauthorized remote access</li>
+        <li>Full compromise of the LAN</li>
+        <li>Compliance violations (HIPAA, PCI, GDPR)</li>
       </ul>
 
-      <br>
+      <br />
 
       <div class="info-box">
-        <h3>2. Improper VLAN Configuration</h3>
-        <p>Incorrect VLAN assignments or VLAN hopping vulnerabilities.</p>
+        <h3>2. Bad VLAN Configuration</h3>
+        <p>Inconsistent VLANs lead to traffic leakage and policy bypassing.</p>
       </div>
-
       <ul>
-        <li>Unintended cross-department communication</li>
-        <li>Security policy bypassing</li>
-        <li>Traffic leakage between isolation zones</li>
+        <li>Cross-department access</li>
+        <li>VLAN hopping attacks</li>
+        <li>Unintended shared access</li>
       </ul>
 
-      <br>
+      <br />
 
       <div class="info-box">
-        <h3>3. Spanning Tree Protocol (STP) Failures</h3>
-        <p>Disabling or misconfiguring STP can create loops and broadcast storms.</p>
+        <h3>3. Spanning Tree Misconfiguration</h3>
+        <p>Turning off or misconfiguring STP creates broadcast loops.</p>
       </div>
-
       <ul>
         <li>Total LAN outage</li>
-        <li>MAC table instability</li>
-        <li>Unpredictable connectivity</li>
+        <li>Storms crippling traffic</li>
       </ul>
 
-      <br>
+      <br />
 
       <div class="info-box">
-        <h3>4. Lack of Port Security</h3>
-        <p>No MAC limits, no sticky MAC, no violation actions.</p>
+        <h3>4. No Port Security</h3>
+        <p>No MAC limiting, violation control, or sticky MAC usage.</p>
       </div>
-
       <ul>
-        <li>Unauthorized device access</li>
+        <li>Unauthorized device plug-ins</li>
         <li>MAC spoofing attacks</li>
-        <li>Rogue device infiltration</li>
+        <li>IoT or rogue device infiltration</li>
       </ul>
 
-      <br>
+      <br />
 
       <div class="info-box">
-        <h3>5. Misconfigured Trunk Ports</h3>
-        <p>Allowing all VLANs or wrong native VLAN settings.</p>
+        <h3>5. Misconfigured Trunks</h3>
+        <p>Allowing all VLANs or incorrect native VLAN settings.</p>
       </div>
-
       <ul>
-        <li>VLAN hopping attacks</li>
-        <li>Broadcast domain spills</li>
+        <li>Traffic leakage</li>
+        <li>Unauthorized VLAN access</li>
       </ul>
-
-      <br>
 
       <div class="warning">
-        <h4>⚠️ Real-World Impact</h4>
+        <h4>⚠️ Why it Matters</h4>
         <p>
-          A single switch misconfiguration can disable an entire campus network — understanding proper design,
-          VLAN logic, and redundancy prevents catastrophic outages.
+          A single incorrectly configured switch can shut down a hospital, school,
+          or entire enterprise. Proper configuration prevents operational downtime
+          and protects the network from attacks.
         </p>
       </div>
-
     </section>
 
     <!-- Footer -->
@@ -145,4 +139,5 @@
 
   </div>
 </body>
+
 </html>
