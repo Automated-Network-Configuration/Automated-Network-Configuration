@@ -92,7 +92,6 @@
       background: linear-gradient(135deg, var(--fiu-light-blue) 0%, var(--fiu-blue) 100%);
     }
 
-    /* Generic card */
     .content-card {
       background: var(--white);
       border-radius: 15px;
@@ -141,7 +140,6 @@
       color: var(--text-gray);
     }
 
-    /* Features grid */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -180,7 +178,7 @@
       font-size: 0.96rem;
     }
 
-    /* Button */
+    
     .btn {
       display: inline-block;
       padding: 14px 34px;
@@ -200,7 +198,6 @@
       box-shadow: 0 10px 30px rgba(182, 134, 44, 0.5);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       color: var(--white);
@@ -213,7 +210,7 @@
       opacity: 0.9;
     }
 
-    /* Responsive */
+    
     @media (max-width: 768px) {
       .content-card {
         padding: 24px;
@@ -233,7 +230,7 @@
       }
     }
 
-    /* Animation */
+    
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -252,7 +249,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
+   
     <header>
       <h1>🔐 AutoSec</h1>
       <p>Implement automation processes that eliminate reliance on manual operations and minimize the risk of human error.
@@ -270,7 +267,7 @@ A centralized resource for secure network configuration education, emphasizing s
       </nav>
     </header>
 
-    <!-- Welcome / Intro -->
+    
     <section id="welcome" class="content-card">
       <div class="intro-section">
         <h2>Welcome to AutoSec</h2>
@@ -284,7 +281,7 @@ A centralized resource for secure network configuration education, emphasizing s
       </div>
     </section>
 
-    <!-- Feature Links -->
+    
     <section id="more-info" class="content-card">
       <h2 class="section-title">AutoSec Topics Overview</h2>
       <p class="section-subtitle">Select a learning path below to access structured guidance for securing and automating network infrastructure.</p>
@@ -317,14 +314,14 @@ A centralized resource for secure network configuration education, emphasizing s
       </div>
     </section>
 
-    <!-- Footer -->
+    
     <footer>
       <p>&copy; 2025 AutoSec. All rights reserved.</p>
     </footer>
   </div>
 
   <script>
-    // Intersection Observer for fade-in animations
+  
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -40px 0px'
@@ -339,7 +336,6 @@ A centralized resource for secure network configuration education, emphasizing s
       });
     }, observerOptions);
 
-    // Observe feature cards + content cards
     document.querySelectorAll('.content-card, .feature-card').forEach(el => {
       observer.observe(el);
     });
