@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIU AutoSec - Python & SSH Automation</title>
+  <title>FIU AutoSec - Python Automation</title>
   <style>
     :root {
       --fiu-blue: #081E3F;
@@ -36,7 +36,6 @@
       padding: 20px;
     }
 
-    /* Header */
     header {
       text-align: center;
       color: var(--white);
@@ -98,7 +97,7 @@
       padding: 32px;
       margin-bottom: 30px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      opacity: 0; 
+      opacity: 0;
     }
 
     @media (min-width: 768px) {
@@ -106,7 +105,6 @@
         padding: 40px;
       }
     }
-
 
     .intro {
       background: linear-gradient(135deg, var(--light-gray) 0%, #E8EDF3 100%);
@@ -141,7 +139,7 @@
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       transition: all 0.3s ease;
-      opacity: 0; 
+      opacity: 0;
       border: 2px solid transparent;
     }
 
@@ -311,12 +309,12 @@
 <body>
   <div class="container">
     <header>
-      <h1>🔐 AutoSec - Python & SSH Automation</h1>
+      <h1>🔐 AutoSec - Python Automation</h1>
       <p>
-        Python-based SSH automation to keep your network configuration fast, repeatable, and secure.
+        Python-based automation to keep your network configuration fast, repeatable, and secure.
       </p>
 
-       <nav>
+      <nav>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="Switch 1.html">Switch 1</a></li>
@@ -332,8 +330,8 @@
       <div class="intro">
         <h2>What does the Python script do?</h2>
         <p>
-        This Python-based automation script manages SSH and COM connections, as well as configuration tasks, across network devices. 
-        It standardizes settings, reduces manual command-line interface operations, and enables repeatable workflows for switches, routers, and servers, 
+        This Python-based automation script manages direct and COM connections, as well as configuration tasks, across network devices. 
+        It standardizes settings, reduces manual command-line operations, and enables repeatable workflows for switches, routers, and servers, 
         functioning similarly to SCCM Configuration Manager for Windows.
         </p>
       </div>
@@ -342,59 +340,51 @@
         <div class="feature-card">
           <h3><span class="icon">🔑</span>Multiple Authentication</h3>
           <p>
-            Use passwords or SSH keys with libraries like <code>paramiko</code> or <code>netmiko</code>,
-            giving you flexible authentication per device or environment.
+            Supports password-based and secure key-based access methods through automation libraries.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🌐</span>Multi-Host Management</h3>
           <p>
-            Loop through multiple hosts from a Python list or inventory file, applying the same logic to
-            production, staging, and lab devices with a single script.
+            Loop through multiple hosts from a Python list or inventory file, applying the same logic to production, staging, and lab environments.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🚇</span>Consistent Configs</h3>
           <p>
-            Send standardized configuration commands over SSH to switches, routers, and servers, keeping
-            network behavior predictable and documented in code.
+            Send standardized configuration commands to switches, routers, and servers, keeping network behavior predictable and documented in code.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">⚙️</span>Rapid Deployment</h3>
           <p>
-            Push updates, patch changes, or new settings to dozens of devices in minutes instead of hours
-            of manual CLI sessions.
+            Push updates, patch changes, or new settings to dozens of devices in minutes instead of hours of manual CLI work.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🤖</span>Automation Friendly</h3>
           <p>
-            Integrate Python scripts into CI/CD pipelines, cron jobs, or orchestration tools to schedule
-            checks and configuration tasks automatically.
+            Integrate Python scripts into CI/CD pipelines, scheduled tasks, or orchestration tools to automate configuration operations.
           </p>
         </div>
 
         <div class="feature-card">
           <h3><span class="icon">🔧</span>Error Reduction</h3>
           <p>
-            Centralize commands and logic in one script, reducing the chance of mistyped commands or
-            inconsistent setups between devices.
+            Centralize commands and logic in one script, reducing the chance of mistyped commands or inconsistent setups between devices.
           </p>
         </div>
       </div>
 
       <div class="usage-section">
-        <h2>How to Use a Python SSH Automation Script</h2>
+        <h2>Example Python Automation Script</h2>
 
         <p><strong>1. Define your device settings:</strong></p>
         <div class="code-block">
-import netmiko
-
 device = {
     "device_type": "cisco_ios",
     "ip": "192.168.1.100",
@@ -441,43 +431,38 @@ for dev in devices:
       <div class="warning">
         <h4>⚠️ Security Notice</h4>
         <p>
-          Real passwords or private keys should not be hard-coded in Python scripts.
+          Real passwords or private keys should not be hard-coded in scripts.
           Instead, utilize environment variables, encrypted vaults, or secret managers. 
-          Restrict automation to specific hosts and users, 
-          and conduct thorough testing in a laboratory environment prior to deployment on production devices.
+          Always test in a controlled lab environment before production deployment.
         </p>
       </div>
 
       <div class="usage-section">
-        <h2>Why Use Python for SSH Automation?</h2>
+        <h2>Why Use Python Automation?</h2>
         <ul style="list-style-type: none; padding: 0;">
           <li class="bullet-card">
-            <strong>🔧 Repeatable Commands:</strong>
-          Storing standardized configurations in Python lists and
-          functions enables consistent application of changes without manual repetition.
+            <strong>🔧 Repeatable Configuration</strong><br>
+            Store configuration changes in code for consistency.
           </li>
 
           <li class="bullet-card">
-            <strong>🌍 Scales Across Environments:</strong>
-            Python automation can target development, testing, 
-            and production environments by utilizing different device lists or credentials while maintaining consistent core logic.
+            <strong>🌍 Scales Across Environments</strong><br>
+            One script can target development, testing, and production devices.
           </li>
 
           <li class="bullet-card">
-            <strong>🚇 Comprehensive Access Control:</strong>
-            SSH tunnels, jump hosts, and role-based accounts can be managed centrally through a single Python entry point.
+            <strong>🚇 Centralized Access</strong><br>
+            Manage configuration workflows from a single automation entry point.
           </li>
 
           <li class="bullet-card">
-            <strong>🔑 Robust Key Management </strong>
-             Key-based authentication is preferred over password-based methods, 
-            and automated routines can facilitate regular key rotation as required.
+            <strong>🔑 Secure Credential Handling</strong><br>
+            Support for environment-based authentication storage and rotation.
           </li>
 
           <li class="bullet-card">
-            <strong>🤖 Integrates Everywhere:</strong>
-            Python scripts can run on laptops, jump boxes, CI pipelines, or management servers,
-            giving you flexible control over where and how automation executes.
+            <strong>🤖 Integrates With Anything</strong><br>
+            Works alongside CI/CD pipelines, orchestration systems, and local tools.
           </li>
         </ul>
       </div>
@@ -485,8 +470,7 @@ for dev in devices:
       <div class="download-section">
         <h2>Ready to Get Started?</h2>
         <p>
-          Build a simple Python SSH script, test it against a lab switch or router, and then expand
-          it into a reusable tool for your entire AutoSec environment.
+          Build a simple automation script, test it against a lab device, and expand it into a reusable tool for your network environment.
         </p>
         <a href="usage.html" class="btn">View Usage Guide</a>
       </div>
