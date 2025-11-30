@@ -210,3 +210,9 @@ if __name__ == "__main__":
 * Handles exceptions such as missing serial ports, permission errors, or lack of response from the switch
 * Displays an [ERROR] message to inform the user, rather than terminating without notification
 * Waits for user input before closing the window, ensuring that error messages are visible
+
+
+
+TO view html code you may need to open the code in Visual Studio or simply right click on the html file to view code in text editor
+
+
